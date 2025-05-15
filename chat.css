@@ -13,13 +13,13 @@ body {
     right: 20px;
     width: 300px;
     max-height: 400px;
-    background: rgba(15, 25, 35, 0.9);
-    border: 2px solid #ff4655;
+    background: green;/*rgba(15, 25, 35, 0.9);*/
+    border: 2px solid red;
     border-radius: 12px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    box-shadow: 0 0 15px rgba(255, 70, 85, 0.5);
+    /*box-shadow: 0 0 15px rgba(255, 70, 85, 0.5);*/
     z-index: 1000;
 }
 
@@ -81,21 +81,7 @@ button:hover {
     display: none;
 }
 
-.chat-container {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 300px;
-    max-height: 400px;
-    background: rgba(15, 25, 35, 0.9);
-    border: 2px solid #ff4655;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    box-shadow: 0 0 15px rgba(255, 70, 85, 0.5);
-    z-index: 1000;
-}
+
 
 .message-container {
     flex: 1;
