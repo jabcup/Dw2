@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego 1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2 class="titulo">Detector de Clicks</h2>
+
+    <div class="estadisticas">
+        <p>Tiempo restante: <span id="temporizador">30</span>s</p>
+        <p>Puntaje</p>
+        <div id="puntaje" class="puntaje">0</div>
+        <p>Clicks</p>
+        <div id="clicks" class="clicks">0</div>
+        <button type="button" onclick="resetCounter()" id="resetBtn" style="display: none;">Resetear contador</button>
+    </div>
+
+    <button onclick="iniciarJuego()" id="startBtn">Iniciar juego</button>
+
+    <div class="area-juego" id="areaJuego">
+        <div class="punto" id="counter" onclick="contadorClick()" style="display: none;">
+            <p class="p" style="visibility: hidden;">.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
