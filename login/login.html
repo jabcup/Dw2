@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="login.css">
+  <title>jiji | Login</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <!-- Efecto de partículas para fondo -->
+  <div id="particles-js"></div>
+  
+  <div id="navbar">
+    <div id="left" class="navsec">
+      <h1><span class="game-logo">jiji </span><span class="game-logo-alt"> games</span><span class="game-logo"> oeo</span></h1>
+    </div>
+    <div id="right" class="navsec">
+      <a href="#" class="nav-link">Inicio</a>
+      <a href="#" class="nav-link">Registro</a>
+      <a href="#" class="nav-link">Ranking</a>
+      <a href="#" class="nav-link">Soporte</a>
+    </div>
+  </div>
+  
+  <div class="login-container">
+    <div class="terminal-header">
+      <div class="terminal-dots">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+      </div>
+      <span class="terminal-title">acceder</span>
+    </div>
+    
+    <h2>INICIAR SESIÓN</h2>
+    
+    <form id="formLogin">
+      <div class="input-group">
+        <input type="email" id="email" placeholder="CORREO ELECTRÓNICO" required />
+        <span class="input-icon">✉</span>
+      </div>
+      <div class="input-group">
+        <input type="password" id="password" placeholder="CONTRASEÑA" required />
+        <span class="input-icon">🔒</span>
+      </div>
+      <button type="submit">
+        <span class="btn-text">ACCEDER</span>
+        <span class="btn-loader"></span>
+      </button>
+    </form>
+    
+    <div class="login-footer">
+      <a href="#" class="link">¿Olvidaste tu contraseña?</a>
+      <span class="divider">|</span>
+      <a href="#" class="link">Crear nueva cuenta</a>
+    </div>
+  </div>
+  
+  <div class="scanlines"></div>
+  
+  <!-- Script para partículas -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    // Inicialización de partículas
+    if (window.particlesJS) {
+      particlesJS.load('particles-js', 'particles-config.json', function() {
+        console.log('Partículas cargadas');
+      });
+    }
+    
+    // Tu código de login existente
+    document.getElementById("formLogin").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      
+      // Mostrar loader
+      const btn = e.target.querySelector('button');
+      btn.setAttribute('data-loading', 'true');
+      
+      try {
+        const res = await fetch("/api/usuarios/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ correo: email, password })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          localStorage.setItem("usuario", JSON.stringify(data.jugador));
+          console.log("accedido correctamente");
+          window.location.href = "menu.html";
+        } else {
+          // Efecto de error
+          document.getElementById('formLogin').classList.add('error-shake');
+          setTimeout(() => {
+            document.getElementById('formLogin').classList.remove('error-shake');
+          }, 500);
+          alert(data.error);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Error de conexión');
+      } finally {
+        btn.removeAttribute('data-loading');
+      }
+    });
+  </script>
+</body>
+</html>

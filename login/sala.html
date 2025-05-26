@@ -1,0 +1,48 @@
+<!-- sala.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sala de Chat</title>
+</head>
+<body>
+  <h2>Chat en sala: <span id="salaCodigo"></span></h2>
+  <p>Usuario: <strong id="nombreUsuario"></strong></p>
+
+  <div id="mensajes" style="border: 1px solid #ccc; height: 200px; overflow-y: scroll;"></div>
+  <input type="text" id="mensaje" placeholder="Escribe un mensaje..." />
+  <button onclick="enviarMensaje()">Enviar</button>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    const codigoSala = localStorage.getItem("codigoSala");
+
+    if (!usuario || !codigoSala) {
+      alert("No tienes acceso a esta sala");
+      window.location.href = "lobby.html";
+    }
+
+    document.getElementById("salaCodigo").textContent = codigoSala;
+    document.getElementById("nombreUsuario").textContent = usuario.Nombre;
+
+    socket.emit("unirseSala", { codigo: codigoSala, nombre: usuario.Nombre });
+
+    socket.on("mensaje", (data) => {
+      const mensajesDiv = document.getElementById("mensajes");
+      mensajesDiv.innerHTML += `<p><strong>${data.nombre}:</strong> ${data.mensaje}</p>`;
+      mensajesDiv.scrollTop = mensajesDiv.scrollHeight;
+    });
+
+    function enviarMensaje() {
+      const mensaje = document.getElementById("mensaje").value;
+      if (mensaje.trim()) {
+        socket.emit("mensaje", { codigo: codigoSala, nombre: usuario.Nombre, mensaje });
+        document.getElementById("mensaje").value = "";
+      }
+    }
+  </script>
+</body>
+</html>
