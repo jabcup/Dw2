@@ -1,0 +1,41 @@
+CREATE DATABASE db_Juego;
+USE db_Juego;
+
+CREATE TABLE tb_Jugadores (
+    ID_Jugador INT PRIMARY KEY AUTO_INCREMENT,
+    Nombre VARCHAR(50) NOT NULL,
+    Nickname VARCHAR(50) NOT NULL,
+    Correo VARCHAR(100) UNIQUE,
+    Password VARCHAR(255) NOT NULL,
+    Fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP,
+    Fecha_cambio  DATETIME NULL,
+    Estado BOOLEAN DEFAULT TRUE,
+    Rol NVARCHAR(20) NOT NULL
+);
+
+CREATE TABLE tb_Juegos (
+	ID_Juego INT PRIMARY KEY AUTO_INCREMENT,
+    	Nombre VARCHAR(50) NOT NULL,
+    	Descripcion TEXT,
+	Precio INT DEFAULT 0
+);
+
+CREATE TABLE tb_Puntajes (
+	ID_Puntaje INT PRIMARY KEY AUTO_INCREMENT,
+	ID_Juego INT NOT NULL,
+	ID_Jugador INT NOT NULL,
+	Puntaje INT NOT NULL DEFAULT 0,
+	Accion INT NOT NULL DEFAULT 0,
+	FOREIGN KEY (ID_Juego) REFERENCES tb_Juegos(ID_Juego),
+	FOREIGN KEY (ID_Jugador) REFERENCES tb_Jugadores(ID_Juego)
+);
+
+CREATE TABLE tb_Juegos_Jugadores (
+	ID_Juego_jugador INT PRIMARY KEY AUTO_INCREMENT,
+	ID_Juego INT NOT NULL,
+	ID_Jugador INT NOT NULL,
+	Fecha_adquisicion DATETIME DEFAULT CURRENT_TIMESTAMP,
+	EsCompra BOOLEAN DEFAULT 0,
+	FOREIGN KEY (ID_Juego) REFERENCES tb_Juegos(ID_Juego),
+	FOREIGN KEY (ID_Jugador) REFERENCES tb_Jugadores(ID_Juego)
+);
