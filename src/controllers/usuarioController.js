@@ -18,7 +18,7 @@ const register = (req, res) => {
 
 const login = (req, res) => {
     const { correo, password } = req.body;
-    const query = 'SELECT * FROM Jugadores WHERE Correo = ? AND Estado = 1 AND Password = ?';
+    const query = 'SELECT * FROM tb_Jugadores WHERE Correo = ? AND Estado = 1 AND Password = ?';
 
     db.query(query, [correo, password], (err, results) => {
         if (err) return res.status(500).json({ error: 'Error del servidor' });
