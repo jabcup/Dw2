@@ -1,0 +1,43 @@
+<!-- lobby.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lobby</title>
+</head>
+<body>
+  <h2 id="bienvenida"></h2>
+  <button onclick="crearSala()">Crear sala</button>
+
+  <h3>O unirse a una sala</h3>
+  <input type="text" id="codigoSala" placeholder="Código de sala" />
+  <button onclick="unirseSala()">Unirse</button>
+
+  <script>
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    if (!usuario) window.location.href = "login.html";
+
+    document.getElementById("bienvenida").textContent = `Bienvenido, ${usuario.Nombre}`;
+
+    function generarCodigo() {
+      return Math.random().toString(36).substr(2, 6).toUpperCase();
+    }
+
+    function crearSala() {
+      const codigo = generarCodigo();
+      localStorage.setItem("codigoSala", codigo);
+      window.location.href = "sala.html";
+    }
+
+    function unirseSala() {
+      const codigo = document.getElementById("codigoSala").value.trim().toUpperCase();
+      if (codigo) {
+        localStorage.setItem("codigoSala", codigo);
+        window.location.href = "sala.html";
+      } else {
+        alert("Ingresa un código válido");
+      }
+    }
+  </script>
+</body>
+</html>
