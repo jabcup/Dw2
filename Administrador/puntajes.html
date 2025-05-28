@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Juego - Puntajes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="nav">
+    <button class="navbtn"><a href="./juegos.html">Juegos</a></button>
+    <button class="navbtn"><a href="./juegosJugadores.html">Juegos - Jugadores</a></button>
+    <button class="navbtn"><a href="./jugadores.html">Jugadores</a></button>
+</div>
+
+    <h1>Administrar Puntajes</h1>
+
+        <h2>Lista de Puntajes</h2>
+    <table id="tablaPuntajes">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ID Juego</th>
+                <th>ID Jugador</th>
+                <th>Puntaje</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    
+    <h2>Crear Puntaje</h2>
+    <form id="formCrear">
+        <input type="number" id="idJuego" placeholder="ID Juego" required>
+        <input type="number" id="idJugador" placeholder="ID Jugador" required>
+        <input type="number" id="puntaje" placeholder="Puntaje" required>
+        <button type="submit">Crear</button>
+    </form>
+
+    <h2>Editar Puntaje</h2>
+    <form id="formEditar" style="display: none;">
+        <input type="hidden" id="editId">
+        <input type="number" id="editPuntaje" placeholder="Nuevo puntaje" required>
+        <button style="background-color: #48a4da; border: none; padding: 3px; border-radius: 5px; cursor: pointer; color: white;" type="submit">Actualizar</button>
+        <button style="background-color: #bd48da; border: none; padding: 3px; border-radius: 5px; cursor: pointer; color: white;" type="button" onclick="cancelarEdicion()">Cancelar</button>
+    </form>
+
+
+    <script>
+        const API_URL = 'http://localhost:4000/api/puntajes';
+        const tablaPuntajes = document.getElementById('tablaPuntajes').getElementsByTagName('tbody')[0];
+        const formCrear = document.getElementById('formCrear');
+        const formEditar = document.getElementById('formEditar');
+
+        // Cargar puntajes
+        function cargarPuntajes() {
+            fetch(API_URL)
+                .then(res => res.json())
+                .then(data => {
+                    tablaPuntajes.innerHTML = '';
+                    data.forEach(puntaje => {
+                        const fila = tablaPuntajes.insertRow();
+                        fila.innerHTML = `
+                            <td>${puntaje.ID_Puntaje}</td>
+                            <td>${puntaje.ID_Juego}</td>
+                            <td>${puntaje.ID_Jugador}</td>
+                            <td>${puntaje.Puntaje}</td>
+                            <td>${new Date(puntaje.Fecha).toLocaleString()}</td>
+                            <td>
+                                <button style="background-color: #f1d249; border: none; padding: 3px; border-radius: 5px; cursor: pointer; color: black;" onclick="editarPuntaje(${puntaje.ID_Puntaje}, ${puntaje.Puntaje})">Editar</button>
+                                <button style="background-color: #da4848; border: none; padding: 3px; border-radius: 5px; cursor: pointer; color: white;" onclick="eliminarPuntaje(${puntaje.ID_Puntaje})">Eliminar</button>
+                            </td>
+                        `;
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Crear puntaje
+        formCrear.addEventListener('submit', e => {
+            e.preventDefault();
+            const nuevoPuntaje = {
+                ID_Juego: parseInt(document.getElementById('idJuego').value),
+                ID_Jugador: parseInt(document.getElementById('idJugador').value),
+                Puntaje: parseInt(document.getElementById('puntaje').value)
+            };
+
+            fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(nuevoPuntaje)
+            })
+            .then(() => {
+                formCrear.reset();
+                cargarPuntajes();
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        // Preparar edición
+        function editarPuntaje(id, puntaje) {
+            formEditar.style.display = 'block';
+            document.getElementById('editId').value = id;
+            document.getElementById('editPuntaje').value = puntaje;
+        }
+
+        // Cancelar edición
+        function cancelarEdicion() {
+            formEditar.style.display = 'none';
+            formEditar.reset();
+        }
+
+        // Actualizar puntaje
+        formEditar.addEventListener('submit', e => {
+            e.preventDefault();
+            const id = document.getElementById('editId').value;
+            const puntaje = parseInt(document.getElementById('editPuntaje').value);
+
+            fetch(`${API_URL}/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ Puntaje: puntaje })
+            })
+            .then(() => {
+                formEditar.style.display = 'none';
+                cargarPuntajes();
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        // Eliminar puntaje
+        function eliminarPuntaje(id) {
+            if (confirm('¿Eliminar este puntaje?')) {
+                fetch(`${API_URL}/${id}`, {
+                    method: 'DELETE'
+                })
+                .then(() => cargarPuntajes())
+                .catch(error => console.error('Error:', error));
+            }
+        }
+
+        // Inicializar
+        cargarPuntajes();
+    </script>
+</body>
+</html>

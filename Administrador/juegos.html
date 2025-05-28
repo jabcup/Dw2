@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Juego - Juegos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="nav">
+    <button class="navbtn"><a href="./puntajes.html">Puntajes</a></button>
+    <button class="navbtn"><a href="./juegosJugadores.html">Juegos - Jugadores</a></button>
+    <button class="navbtn"><a href="./jugadores.html">Jugadores</a></button>
+</div>
+
+    <h1>Lista de Juegos</h1>
+    <ul id="listaJuegos"></ul>
+
+    <form id="formCrear">
+        <input type="text" id="nombre" placeholder="Nombre" required/>
+        <input type="text" id="descripcion" placeholder="Descripcion" required/>
+        <input type="number" id="precio" placeholder="Precio" required step="0.01"/>
+        <button type="submit">Crear</button>
+    </form>
+
+    <h2>Editar Juego</h2>
+    <form id="formEditar" style="display: none;">
+        <input type="hidden" id="editId"/>
+        <input type="text" id="editNombre" placeholder="Nuevo nombre" required/>
+        <input type="text" id="editDescripcion" placeholder="Nueva descripcion" required/>
+        <input type="number" id="editPrecio" placeholder="Nuevo precio" required step="0.01"/>
+        <button type="submit" style = "background-color: #48a4da; border: none; padding: 3px; border-radius: 5px; cursor: pointer; color: white;">Actualizar</button>
+    </form>
+
+    <script>
+        const API_URL = 'http://localhost:4000/api/juegos';
+        const listaJuegos = document.getElementById('listaJuegos');
+        const formCrear = document.getElementById('formCrear');
+        const formEditar = document.getElementById('formEditar');
+
+        // Mostrar Juegos
+        function cargarJuegos() {
+            fetch(API_URL)
+            .then(res => res.json()) 
+            .then(data => {
+                console.log('Datos recibidos:', data); // Para depuración
+                listaJuegos.innerHTML = '';
+                data.forEach(juego => {
+                    const li = document.createElement('li');
+                    // En la función cargarJuegos, cambia el innerHTML:
+li.innerHTML = `
+    <strong>${juego.nombre}</strong> - ${juego.descripcion} - $${juego.precio}
+    <button style="background-color: #f1d249; border: none; padding: 3px; border-radius: 5px; cursor: pointer; color: black;" onclick="editar(${juego.id}, '${juego.nombre}', '${juego.descripcion}', ${juego.precio})">Editar</button>
+    <button style="background-color: #da4848; border: none; padding: 3px; border-radius: 5px; cursor: pointer; color: white;" onclick="eliminar(${juego.id})">Eliminar</button>
+`;
+                    listaJuegos.appendChild(li);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Crear Juego
+        formCrear.addEventListener('submit', e => {
+            e.preventDefault();
+            const nombre = document.getElementById('nombre').value;
+            const descripcion = document.getElementById('descripcion').value;
+            const precio = parseFloat(document.getElementById('precio').value);
+            
+            fetch(API_URL, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({nombre, descripcion, precio})
+            })
+            .then(res => res.json())
+            .then(() => {
+                formCrear.reset();
+                cargarJuegos();
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        // Preparar Edición
+        function editar(id, nombre, descripcion, precio) {
+            formEditar.style.display = 'block';
+            document.getElementById('editId').value = id;
+            document.getElementById('editNombre').value = nombre;
+            document.getElementById('editDescripcion').value = descripcion;
+            document.getElementById('editPrecio').value = precio;
+        }
+
+        // Guardar Edición
+        formEditar.addEventListener('submit', e => {
+            e.preventDefault();
+            const id = document.getElementById('editId').value;
+            const nombre = document.getElementById('editNombre').value;
+            const descripcion = document.getElementById('editDescripcion').value;
+            const precio = parseFloat(document.getElementById('editPrecio').value);
+            
+            fetch(`${API_URL}/${id}`, {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({nombre, descripcion, precio})
+            })
+            .then(() => {
+                formEditar.reset();
+                formEditar.style.display = 'none';
+                cargarJuegos();
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        // Eliminar juego
+        function eliminar(id) {
+            if(confirm('¿Estás seguro de eliminar este juego?')) {
+                fetch(`${API_URL}/${id}`, {
+                    method: 'DELETE'
+                })
+                .then(() => cargarJuegos())
+                .catch(error => console.error('Error:', error));
+            }
+        }
+
+        // Inicializar
+        cargarJuegos();
+    </script>
+</body>
+</html>
