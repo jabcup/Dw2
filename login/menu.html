@@ -359,6 +359,17 @@
         .chat-input button:hover {
             background: #e63b49;
         }
+        .gamecard{
+            border: dashed 2px #ff4655;
+            border-radius: 4px;
+            padding: 2%;
+            margin: 3%;
+        }
+        .games{
+
+            display: flex;
+            width: 40%;
+        }
     </style>
 </head>
 <body>
@@ -386,13 +397,12 @@
             <h2 class="panel-title">Modo de Juego</h2>
             <div class="panel-content">
                 <p>Selecciona tu modo de juego preferido:</p>
-                <button class="ps3-btn" onclick="startGame('campana')">Campaña</button>
+                <button class="ps3-btn" onclick="loadStore()">Campaña</button>
                 <button class="ps3-btn" onclick="startGame('arcade')">Arcade</button>
                 <button class="ps3-btn" onclick="startGame('entrenamiento')">Entrenamiento</button>
             </div>
         </div>
-        
-        
+
         <div class="content-panel" id="opciones-panel">
             <h2 class="panel-title">Opciones</h2>
             <div class="panel-content">
@@ -411,19 +421,10 @@
         
         <div class="content-panel" id="tienda-panel">
             <h2 class="panel-title">Tienda</h2>
-            <div class="panel-content">
+            <div class="panel-content store">
                 <p>Contenido disponible:</p>
-                <div style="margin-top: 30px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
-                    <div style="background: rgba(15, 25, 35, 0.5); padding: 15px; border-radius: 8px;">
-                        <h3 style="color: #ff4655; margin-bottom: 10px;">Paquete Armas</h3>
-                        <p style="margin-bottom: 15px;">Desbloquea 5 armas exclusivas</p>
-                        <button class="ps3-btn" style="padding: 10px 15px; font-size: 1.4rem;">500 Créditos</button>
-                    </div>
-                    <div style="background: rgba(15, 25, 35, 0.5); padding: 15px; border-radius: 8px;">
-                        <h3 style="color: #ff4655; margin-bottom: 10px;">Skin Épica</h3>
-                        <p style="margin-bottom: 15px;">Apariencia única para tu personaje</p>
-                        <button class="ps3-btn" style="padding: 10px 15px; font-size: 1.4rem;">300 Créditos</button>
-                    </div>
+                <div id="games">
+                    
                 </div>
             </div>
         </div>
@@ -542,6 +543,50 @@
             // Aquí puedes agregar lógica para acciones al presionar Enter
         }
     }
+
+function loadStore() {
+    const gameContainer = document.getElementById("games");
+    fetch('http://localhost:4000/api/usuarios/gamesOnSale')
+        .then(response => {
+            if (!response.ok) throw new Error('Error en la red: ' + response.status);
+            return response.json();
+        })
+        .then(data => {
+            data.forEach(function(game){
+                gameContainer.innerHTML += `        
+        <div class="gamecard">
+            <h1>${game.Nombre}</h1>
+            <p>${game.Descripcion}</p>
+            <h4>${game.Precio}</h4>
+            <button class="ps3-btn" 
+                    onclick="iniciarCompra('${game.Nombre.replace(/'/g, "\\'")}')">
+                Compra ahora
+            </button>
+        </div>`;
+            });
+        })
+        .catch(error => {
+            console.error('Error al cargar los juegos:', error);
+gameContainer.innerHTML += `        
+    <div class="gamecard">
+        <h1>${game.Nombre}</h1>
+        <p>${game.Descripcion}</p>
+        <h4>${game.Precio}</h4>
+        <button class="ps3-btn" 
+                onclick="iniciarCompra('${game.Nombre.replace(/'/g, "\\'")}', ${game.ID_Juego})">
+            Compra ahora
+        </button>
+    </div>`;
+        });
+}
+
+// Nueva función para iniciar la compra
+function iniciarCompra(nombreJuego, idJuego) {
+    // Guardar ambos: nombre e ID del juego
+    localStorage.setItem('juegoSeleccionado', nombreJuego);
+    localStorage.setItem('idJuegoSeleccionado', idJuego);
+    window.location.href = 'formulario-compra.html';
+}
 
     function startGame(mode) {
         alert(`Iniciando modo ${mode}...`);
