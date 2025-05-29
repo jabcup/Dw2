@@ -122,6 +122,7 @@
                 }
                 
                 // Registrar la compra
+                console.log(`comprando ${userId}, ${juegoId}`);
                 const compraResponse = await fetch('http://localhost:4000/api/usuarios/add-game', {
                     method: 'POST',
                     headers: {
