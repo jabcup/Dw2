@@ -553,13 +553,16 @@ function loadStore() {
         })
         .then(data => {
             data.forEach(function(game){
+                console.log("data");
+                console.log(game.Nombre);
+                console.log(game.ID_Juego);
                 gameContainer.innerHTML += `        
         <div class="gamecard">
             <h1>${game.Nombre}</h1>
             <p>${game.Descripcion}</p>
             <h4>${game.Precio}</h4>
             <button class="ps3-btn" 
-                    onclick="iniciarCompra('${game.Nombre.replace(/'/g, "\\'")}')">
+                    onclick="iniciarCompra('${game.Nombre.replace(/'/g, "\\'")}', ${game.ID_Juego})">
                 Compra ahora
             </button>
         </div>`;
@@ -573,7 +576,7 @@ gameContainer.innerHTML += `
         <p>${game.Descripcion}</p>
         <h4>${game.Precio}</h4>
         <button class="ps3-btn" 
-                onclick="iniciarCompra('${game.Nombre.replace(/'/g, "\\'")}', ${game.ID_Juego})">
+                onclick="iniciarCompra('${game.Nombre.replace(/'/g, "\\'")}', ${5})">
             Compra ahora
         </button>
     </div>`;
@@ -582,7 +585,6 @@ gameContainer.innerHTML += `
 
 // Nueva función para iniciar la compra
 function iniciarCompra(nombreJuego, idJuego) {
-    // Guardar ambos: nombre e ID del juego
     localStorage.setItem('juegoSeleccionado', nombreJuego);
     localStorage.setItem('idJuegoSeleccionado', idJuego);
     window.location.href = 'formulario-compra.html';

@@ -58,6 +58,9 @@
         const nombreJuego = localStorage.getItem('juegoSeleccionado');
         const gameId = localStorage.getItem('idJuegoSeleccionado');
         
+        console.log(nombreJuego);
+        console.log(gameId);
+
         if (nombreJuego) {
             document.getElementById('nombre-juego').textContent = nombreJuego;
         } else {

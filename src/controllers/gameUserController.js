@@ -10,33 +10,23 @@ const addGameToUser = (req, res) => {
             error: 'Se requieren idUsuario e idJuego' 
         });
     }
-
-    const query = `
-        INSERT INTO tb_Juegos_Jugadores (ID_Jugador, ID_Juego, Fecha_adquisicion, EsCompra)
-        VALUES (?, ?, NOW(), TRUE)
-        ON DUPLICATE KEY UPDATE Fecha_adquisicion = NOW()
-    `;
-
-    db.query(query, [idUsuario, idJuego], (err, results) => {
-        if (err) {
-            console.error("Error al añadir juego:", err);
-            return res.status(500).json({ 
-                error: 'Error en la base de datos',
-                detalle: err.message
-            });
-        }
-
-        if (results.affectedRows === 0) {
-            return res.status(404).json({ 
-                error: 'No se pudo agregar el juego' 
-            });
-        }
-
-        res.status(201).json({
-            mensaje: 'Juego añadido a la biblioteca',
-            idRelacion: results.insertId
-        });
-    });
+    console.log("iniciando el fetch");
+    fetch('http://localhost:4000/api/usuarios/add-game', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            idUsuario: idUsuario,
+            idJuego: idJuego
+          })
+        })
+        .then(response => {
+          if (!response.ok) throw new Error('Error en respuesta del servidor');
+          return response.json();
+        })
+        .then(data => console.log('Éxito:', data))
+        .catch(error => console.error('Fallo:', error));
 };
 
 module.exports = {
