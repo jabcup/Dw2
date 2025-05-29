@@ -20,6 +20,7 @@
     <form id="formCrear">
         <input type="text" id="nombre" placeholder="Nombre" required/>
         <input type="text" id="descripcion" placeholder="Descripcion" required/>
+        <input type="text" id="reglas" placeholder="Reglas" required/>
         <input type="number" id="precio" placeholder="Precio" required step="0.01"/>
         <button type="submit">Crear</button>
     </form>
@@ -29,6 +30,7 @@
         <input type="hidden" id="editId"/>
         <input type="text" id="editNombre" placeholder="Nuevo nombre" required/>
         <input type="text" id="editDescripcion" placeholder="Nueva descripcion" required/>
+        <input type="text" id="editReglas" placeholder="Nueva regla" required/>
         <input type="number" id="editPrecio" placeholder="Nuevo precio" required step="0.01"/>
         <button type="submit" style = "background-color: #48a4da; border: none; padding: 3px; border-radius: 5px; cursor: pointer; color: white;">Actualizar</button>
     </form>
@@ -50,7 +52,7 @@
                     const li = document.createElement('li');
                     // En la función cargarJuegos, cambia el innerHTML:
 li.innerHTML = `
-    <strong>${juego.nombre}</strong> - ${juego.descripcion} - $${juego.precio}
+    <strong>${juego.nombre}</strong> - ${juego.descripcion} - ${juego.reglas} - $${juego.precio}
     <button style="background-color: #f1d249; border: none; padding: 3px; border-radius: 5px; cursor: pointer; color: black;" onclick="editar(${juego.id}, '${juego.nombre}', '${juego.descripcion}', ${juego.precio})">Editar</button>
     <button style="background-color: #da4848; border: none; padding: 3px; border-radius: 5px; cursor: pointer; color: white;" onclick="eliminar(${juego.id})">Eliminar</button>
 `;
@@ -65,12 +67,13 @@ li.innerHTML = `
             e.preventDefault();
             const nombre = document.getElementById('nombre').value;
             const descripcion = document.getElementById('descripcion').value;
+            const reglas = document.getElementById('reglas').value;
             const precio = parseFloat(document.getElementById('precio').value);
             
             fetch(API_URL, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({nombre, descripcion, precio})
+                body: JSON.stringify({nombre, descripcion, reglas, precio})
             })
             .then(res => res.json())
             .then(() => {
@@ -81,11 +84,12 @@ li.innerHTML = `
         });
 
         // Preparar Edición
-        function editar(id, nombre, descripcion, precio) {
+        function editar(id, nombre, descripcion, reglas, precio) {
             formEditar.style.display = 'block';
             document.getElementById('editId').value = id;
             document.getElementById('editNombre').value = nombre;
             document.getElementById('editDescripcion').value = descripcion;
+            document.getElementById('editReglas').value = reglas;
             document.getElementById('editPrecio').value = precio;
         }
 
@@ -95,12 +99,13 @@ li.innerHTML = `
             const id = document.getElementById('editId').value;
             const nombre = document.getElementById('editNombre').value;
             const descripcion = document.getElementById('editDescripcion').value;
+            const reglas = document.getElementById('editReglas').value;
             const precio = parseFloat(document.getElementById('editPrecio').value);
             
             fetch(`${API_URL}/${id}`, {
                 method: 'PUT',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({nombre, descripcion, precio})
+                body: JSON.stringify({nombre, descripcion, reglas, precio})
             })
             .then(() => {
                 formEditar.reset();

@@ -2,272 +2,49 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>ARCADIA</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      background: radial-gradient(#0f1923, #000);
-      font-family: 'Press Start 2P', cursive;
-      color: #fff;
-      overflow: hidden;
-    }
-
-    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
-    .center-screen {
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-
-    h1.arcade-title {
-      font-size: 48px;
-      color: #ffcc00;
-      text-shadow: 0 0 10px #ffcc00, 0 0 20px #ff6600;
-      margin-bottom: 30px;
-      letter-spacing: 5px;
-    }
-
-    .btn-start {
-      padding: 15px 40px;
-      background: #ff4655;
-      color: #fff;
-      font-size: 16px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      box-shadow: 0 0 15px #ff4655aa;
-      text-transform: uppercase;
-      transition: 0.3s;
-    }
-
-    .btn-start:hover {
-      background: #e63b49;
-      transform: scale(1.05);
-    }
-
-    .main-container {
-      display: none;
-      height: 100vh;
-      width: 100vw;
-      flex-direction: row;
-    }
-
-    .menu-container {
-      width: 300px;
-      padding: 40px 20px;
-      background: #0f1923;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      border-right: 3px solid #ff4655;
-      box-shadow: 5px 0 20px #ff4655aa;
-    }
-
-    .menu-item {
-      padding: 15px 20px;
-      border: 2px solid #ff4655;
-      border-radius: 12px;
-      background: #1e2a38;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      transition: 0.3s;
-    }
-
-    .menu-item img {
-      width: 40px;
-      height: 40px;
-    }
-
-    .menu-item:hover,
-    .menu-item.active {
-      background: #292c39;
-      box-shadow: 0 0 15px #ff4655aa;
-    }
-
-    .scoreboard-container {
-      flex: 1;
-      padding: 40px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .scoreboard {
-      display: none;
-      background: #1e2a38;
-      border: 2px solid #ff4655;
-      border-radius: 12px;
-      padding: 20px;
-      width: 100%;
-      max-width: 400px;
-      animation: fadeIn 0.4s ease-in-out;
-    }
-
-    .scoreboard h2 {
-      margin-top: 0;
-      font-size: 18px;
-      color: #ff4655;
-    }
-
-    .scoreboard table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .scoreboard th, .scoreboard td {
-      padding: 8px;
-      text-align: left;
-    }
-
-    .scoreboard th {
-      color: #ff4655;
-      border-bottom: 1px solid #ff4655;
-    }
-
-    .btn-play {
-      margin-top: 15px;
-      background: #00cc66;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      color: #fff;
-      cursor: pointer;
-      font-family: 'Press Start 2P', cursive;
-      font-size: 12px;
-      text-transform: uppercase;
-    }
-
-    .btn-play:hover {
-      background: #00aa55;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateX(20px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-
-body::after {
-  content: "";
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  background-image: url('https://www.transparenttextures.com/patterns/pixel-weave.png');
-  opacity: 0.05;
-  z-index: -1;
-}
-
-  </style>
+  <title>Menú de Juegos</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Handjet:wght@600&family=Share+Tech&display=swap" rel="stylesheet">
 </head>
 <body>
+  <header>
+    <h1>Selecciona tu Juego</h1>
+  </header>
 
-  <!-- Pantalla de Inicio -->
-  <div class="center-screen" id="start-screen">
-    <h1 class="arcade-title">ARCADIA</h1>
-    <button class="btn-start" onclick="startArcade()">Ver Juegos</button>
-  </div>
+  <main>
+    <section class="juego-carousel" id="juegoCarousel">
+      <!-- Juegos cargados dinámicamente -->
+    </section>
 
-  <!-- Menú principal -->
-  <div class="main-container" id="main-menu">
-    <div class="menu-container">
-      <div class="menu-item" data-game="scramble">
-        <img src="https://cdn-icons-png.flaticon.com/512/3909/3909444.png" alt="Scramble">
-        Scramble
+    <section class="info-juego">
+      <div class="descripcion" id="descripcionJuego">
+        <h2>Descripción</h2>
+        <p>Pasa el mouse sobre un juego para ver su descripción.</p>
       </div>
-      <div class="menu-item" data-game="hangman">
-        <img src="https://cdn-icons-png.flaticon.com/512/2436/2436881.png" alt="Hangman">
-        Hangman
-      </div>
-      <div class="menu-item" data-game="aimrush">
-        <img src="https://cdn-icons-png.flaticon.com/512/753/753345.png" alt="Aimrush">
-        Aimrush
-      </div>
-      <div class="menu-item" data-game="snake">
-        <img src="https://cdn-icons-png.flaticon.com/512/1161/1161721.png" alt="Snake">
-        Snake
-      </div>
-    </div>
 
-    <div class="scoreboard-container">
-      <div class="scoreboard" id="score-scramble">
-        <h2>Scramble - Scores</h2>
+      <div class="reglas" id="reglasJuego">
+        <h2>Reglas</h2>
+        <p>Selecciona un juego para ver las reglas.</p>
+      </div>
+
+      <div class="puntajes" id="puntajesJuego">
+        <h2>Puntajes</h2>
         <table>
-          <tr><th>Jugador</th><th>Puntaje</th></tr>
-          <tr><td>Ana</td><td>1200</td></tr>
-          <tr><td>Benja</td><td>980</td></tr>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Puntaje</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Puntajes cargados dinámicamente -->
+          </tbody>
         </table>
-        <button class="btn-play" onclick="location.href='../Scramble/index.html'">Jugar</button>
       </div>
+    </section>
+  </main>
 
-      <div class="scoreboard" id="score-hangman">
-        <h2>Hangman - Scores</h2>
-        <table>
-          <tr><th>Jugador</th><th>Puntaje</th></tr>
-          <tr><td>Eva</td><td>7 palabras</td></tr>
-          <tr><td>Fabi</td><td>5 palabras</td></tr>
-        </table>
-        <button class="btn-play" onclick="location.href='../Hangman/index.html'">Jugar</button>
-      </div>
-
-      <div class="scoreboard" id="score-aimrush">
-        <h2>Aimrush - Scores</h2>
-        <table>
-          <tr><th>Jugador</th><th>Tiempo</th></tr>
-          <tr><td>Gus</td><td>30s</td></tr>
-          <tr><td>Iris</td><td>34s</td></tr>
-        </table>
-        <button class="btn-play" onclick="location.href='../Clicker/index.html'">Jugar</button>
-      </div>
-
-      <div class="scoreboard" id="score-snake">
-        <h2>Snake - Scores</h2>
-        <table>
-          <tr><th>Jugador</th><th>Puntaje</th></tr>
-          <tr><td>Juan</td><td>180</td></tr>
-          <tr><td>Leo</td><td>150</td></tr>
-        </table>
-        <button class="btn-play" onclick="location.href='../Snake/index.html'">Jugar</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const menuItems = document.querySelectorAll('.menu-item');
-    const scoreboards = document.querySelectorAll('.scoreboard');
-
-    function startArcade() {
-      document.getElementById("start-screen").style.display = "none";
-      document.getElementById("main-menu").style.display = "flex";
-      showScoreboard("scramble");
-    }
-
-    function showScoreboard(game) {
-      scoreboards.forEach(score => score.style.display = 'none');
-      const selected = document.getElementById(`score-${game}`);
-      if (selected) selected.style.display = 'block';
-    }
-
-    menuItems.forEach(item => {
-      item.addEventListener('mouseenter', () => {
-        menuItems.forEach(i => i.classList.remove('active'));
-        item.classList.add('active');
-        showScoreboard(item.dataset.game);
-      });
-
-      item.addEventListener('click', () => {
-        menuItems.forEach(i => i.classList.remove('active'));
-        item.classList.add('active');
-        showScoreboard(item.dataset.game);
-      });
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
