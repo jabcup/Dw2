@@ -2,14 +2,16 @@ const db = require('../config/db');
 const kuki = require('cookie-parser')
 
 const register = (req, res) => {
-    const { nombre, correo, password } = req.body;
-    const query = 'INSERT INTO Jugadores (Nombre, Correo, Password) VALUES (?, ?, ?)';
+    const { Nombre, Nickname, Correo, Password } = req.body;
+    console.log(req.body);
+    const query = 'INSERT INTO tb_Jugadores (Nombre, Nickname, Correo, Password) VALUES (?, ?, ?, ?)';
 
-    db.query(query, [nombre, correo, password], (err, result) => {
+    db.query(query, [Nombre, Nickname, Correo, Password], (err, result) => {
         if (err) {
             if (err.code === 'ER_DUP_ENTRY') {
-                return res.status(409).json({ error: 'Correo ya registrado' });
+                return res.status(409).json({error: 'Correo ya registrado' });
             }
+            console.log(err)
             return res.status(500).json({ error: 'Error al registrar' });
         }
         res.status(201).json({ mensaje: 'Jugador registrado correctamente' });

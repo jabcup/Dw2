@@ -9,6 +9,7 @@
     <h2 class="titulo">Crear cuenta</h2>
     <form id="registerForm" class="registerForm">
         <input type="text" id="reg_nombre" placeholder="Nombre" required><br>
+        <input type="text" id="reg_nickname" placeholder="Nickname" required>
         <input type="email" id="reg_correo" placeholder="Correo" required><br>
         <input type="password" id="reg_password" placeholder="Contraseña" required><br>
         <button type="submit">Registrar</button>
@@ -23,14 +24,15 @@
         // Registro
         document.getElementById('registerForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const nombre = document.getElementById('reg_nombre').value;
-            const correo = document.getElementById('reg_correo').value;
-            const password = document.getElementById('reg_password').value;
+            const Nombre = document.getElementById('reg_nombre').value;
+            const Nickname = document.getElementById('reg_nickname').value;
+            const Correo = document.getElementById('reg_correo').value;
+            const Password = document.getElementById('reg_password').value;
 
             const res = await fetch(`${api}/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ nombre, correo, password })
+                body: JSON.stringify({ Nombre, Nickname, Correo, Password })
             });
 
             const data = await res.json();
