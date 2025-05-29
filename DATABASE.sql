@@ -19,6 +19,7 @@ CREATE TABLE tb_Juegos (
     ID_Juego INT PRIMARY KEY AUTO_INCREMENT,
     Nombre VARCHAR(50) NOT NULL UNIQUE,
     Descripcion TEXT,
+    Reglas TEXT,
     Precio DECIMAL(10,2) DEFAULT 0.00,
     INDEX idx_nombre (Nombre)
 );

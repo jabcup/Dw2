@@ -1,0 +1,78 @@
+body {
+  margin: 0;
+  font-family: 'Share Tech', sans-serif;
+  background-color: #111;
+  color: #eee;
+}
+
+header {
+  text-align: center;
+  padding: 1rem;
+  background-color: #1c1c1c;
+  color: #ff5555;
+  font-family: 'Handjet', cursive;
+  font-size: 2rem;
+  border-bottom: 2px solid #ff5555;
+}
+
+.juego-carousel {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding: 1rem;
+  scroll-snap-type: x mandatory;
+}
+
+.juego {
+  min-width: 200px;
+  scroll-snap-align: center;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  transition: transform 0.3s, border 0.3s;
+  cursor: pointer;
+}
+
+.juego:hover {
+  transform: scale(1.1);
+  border: 2px solid #ff5555;
+}
+
+.juego img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.info-juego {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.info-juego div {
+  background-color: #222;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.info-juego h2 {
+  font-family: 'Handjet', cursive;
+  color: #ff5555;
+  margin-top: 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border-bottom: 1px solid #444;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+th {
+  color: #ff5555;
+}
