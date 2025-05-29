@@ -1,3 +1,7 @@
+/* login-style.css - Versión mejorada manteniendo tu identidad */
+@import url('https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&family=Share+Tech&display=swap');
+
+
 * {
     margin: 0;
     padding: 0;
@@ -5,21 +9,29 @@
 }
 
 body {
-    background-color: #333;
-    font-family: Arial, sans-serif;
+    background-color: #0f1923;
+    font-family: 'Handjet', cursive;
     overflow: hidden;
 }
 
 .titulo {
     text-align: center;
-    color: aliceblue;
+    color: #ff1a2f;
     margin: 1%;
+      box-shadow: 
+    0 0 25px rgba(255, 70, 85, 0.3);
+    width: 20%;
+    margin: auto;
+    margin-top: 20px;
+    font-size: 40px;
+    border-radius: 5px;
 }
 
 .estadisticas {
-    color: aliceblue;
+    color: #fff;
     text-align: right;
     margin: 1%;
+    font-size: 20px;
 }
 
 #startBtn {
@@ -28,15 +40,26 @@ body {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+    background-color: #ff4655;
+    border: none;
+    border-radius: 5px;   
+    color: #fff;
+    transition: all .5s;
+}
+
+#startBtn:hover{
+    background-color: #ff1a2f;
+    transition: all .5s;
 }
 
 .area-juego {
-    width: 80vw;
+    width: 90vw;
     height: 60vh;
-    background-color: #555;
+    background-color: #1e2a38;
     margin: 20px auto;
     position: relative;
-    border: 3px solid #fff;
+    box-shadow: 1px 1px 30px #ff4655;
+    border: 3px solid #ff1a2f;
     border-radius: 10px;
     overflow: hidden;
 }
@@ -48,4 +71,5 @@ body {
     position: absolute;
     cursor: pointer;
     border-radius: 50%;
+    box-shadow: 1px 1px 30px #ff4655;
 }

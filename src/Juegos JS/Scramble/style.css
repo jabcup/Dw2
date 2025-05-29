@@ -1,11 +1,11 @@
-/* Google fonts */
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap");
+/* login-style.css - Versión mejorada manteniendo tu identidad */
+@import url('https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&family=Share+Tech&display=swap');
 
 *{
     margin: 0;
     padding: 0;
     box-sizing: 0;
-    font-family: "Open Sans", sans-serif;
+    font-family: 'Handjet', cursive;
 }
 
 body{
@@ -13,20 +13,22 @@ body{
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background: #5372f0;
+    background: #0f1923;
 }
 
 .container{
     width: 450px;
     border-radius: 7px;
-    background: #fff;
+    background: #1e2a38;
 }
 
 .container h2{
     font-size: 25px;
     font-weight: 500;
     padding: 18px 25px ;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #fff;
+    color: #fff;
+    text-shadow: 0 0 10px #ff4655;
 }
 
 .container .content{
@@ -40,10 +42,12 @@ body{
     letter-spacing: 24px;
     margin-right: -24px;
     text-transform: uppercase;
+    color: #fff;
 }
 
 .content .details{
     margin: 25px 0 20px;
+    color: #fff;
 }
 
 .details p{
@@ -62,7 +66,7 @@ body{
     font-size: 18px;
     padding: 0 16px;
     border-radius: 5px;
-    border: 1px solid #aaa;
+    border: 1px solid #ff1a2f;
 }
 
 .content .buttons{
@@ -83,10 +87,10 @@ body{
 }
 
 .buttons .refresh-word{
-    background: #6c757d;
+    background: #0f1923;
 }
 
 .buttons .check-word{
-    background: #5372f0;
+    background: #ff4655;
 }
 
