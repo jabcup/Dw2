@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion de Juego - Juegos-Jugadores</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="nav">
+    <button class="navbtn"><a href="./puntajes.html">Puntajes</a></button>
+    <button class="navbtn"><a href="./juegos.html">Juegos</a></button>
+    <button class="navbtn"><a href="./jugadores.html">Jugadores</a></button>
+</div>
+
+    <h1>Gestión de Relaciones Juegos-Jugadores</h1>
+    
+<h2>Lista de Relaciones</h2>
+    <table id="tablaRelaciones">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ID Juego</th>
+                <th>ID Jugador</th>
+                <th>Fecha</th>
+                <th>Es Compra</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <h2>Crear Nueva Relación</h2>
+    <form id="formCrear">
+        <div class="form-group">
+            <input type="number" id="idJuego" required placeholder="ID_Juego" style="margin: 5px;">
+        </div>
+        <div class="form-group">
+            
+            <input type="number" id="idJugador" required placeholder="ID_Jugador" style="margin: 5px;">
+        </div>
+        <div class="form-group">
+            <label>¿Es compra?</label>
+            <input type="checkbox" id="esCompra">
+        </div>
+        <button type="submit">Crear Relación</button>
+    </form>
+
+    <h2>Editar Relación</h2>
+    <form id="formEditar" style="display: none;">
+        <input type="hidden" id="editId">
+        <div class="form-group">
+            <label>ID Juego:</label>
+            <input type="number" id="editIdJuego" required>
+        </div>
+        <div class="form-group">
+            <label>ID Jugador:</label>
+            <input type="number" id="editIdJugador" required>
+        </div>
+        <div class="form-group">
+            <label>¿Es compra?</label>
+            <input type="checkbox" id="editEsCompra">
+        </div>
+        <button style = "background-color: #48a4da; border: none; padding: 3px; border-radius: 5px; cursor: pointer; color: white;" type="submit">Actualizar</button>
+        <button style="background-color: #bd48da; border: none; padding: 3px; border-radius: 5px; cursor: pointer; color: white;" type="button" onclick="cancelarEdicion()">Cancelar</button>
+    </form>
+
+    
+
+    <script>
+        const API_URL = 'http://localhost:4000/api/juegos-jugadores';
+        const tablaRelaciones = document.getElementById('tablaRelaciones').getElementsByTagName('tbody')[0];
+        const formCrear = document.getElementById('formCrear');
+        const formEditar = document.getElementById('formEditar');
+
+        // Cargar y mostrar relaciones
+        function cargarRelaciones() {
+            fetch(API_URL)
+                .then(res => res.json())
+                .then(data => {
+                    tablaRelaciones.innerHTML = '';
+                    data.forEach(relacion => {
+                        const fila = tablaRelaciones.insertRow();
+                        fila.innerHTML = `
+                            <td>${relacion.ID_Juego_jugador}</td>
+                            <td>${relacion.ID_Juego}</td>
+                            <td>${relacion.ID_Jugador}</td>
+                            <td>${new Date(relacion.Fecha_adquisicion).toLocaleString()}</td>
+                            <td>${relacion.EsCompra ? 'Sí' : 'No'}</td>
+                            <td>
+                                <button style="background-color: #f1d249; border: none; padding: 3px; border-radius: 5px; cursor: pointer; color: black;" onclick="editarRelacion(${relacion.ID_Juego_jugador}, ${relacion.ID_Juego}, ${relacion.ID_Jugador}, ${relacion.EsCompra})">Editar</button>
+                                <button style="background-color: #da4848; border: none; padding: 3px; border-radius: 5px; cursor: pointer; color: white;" onclick="eliminarRelacion(${relacion.ID_Juego_jugador})">Eliminar</button>
+                            </td>
+                        `;
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Crear nueva relación
+        formCrear.addEventListener('submit', e => {
+            e.preventDefault();
+            const nuevaRelacion = {
+                ID_Juego: parseInt(document.getElementById('idJuego').value),
+                ID_Jugador: parseInt(document.getElementById('idJugador').value),
+                EsCompra: document.getElementById('esCompra').checked
+            };
+
+            fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(nuevaRelacion)
+            })
+            .then(() => {
+                formCrear.reset();
+                cargarRelaciones();
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        // Preparar edición
+        function editarRelacion(id, idJuego, idJugador, esCompra) {
+            formEditar.style.display = 'block';
+            document.getElementById('editId').value = id;
+            document.getElementById('editIdJuego').value = idJuego;
+            document.getElementById('editIdJugador').value = idJugador;
+            document.getElementById('editEsCompra').checked = esCompra;
+            window.scrollTo(0, 0);
+        }
+
+        // Cancelar edición
+        function cancelarEdicion() {
+            formEditar.style.display = 'none';
+            formEditar.reset();
+        }
+
+        // Actualizar relación
+        formEditar.addEventListener('submit', e => {
+            e.preventDefault();
+            const id = document.getElementById('editId').value;
+            const datosActualizados = {
+                ID_Juego: parseInt(document.getElementById('editIdJuego').value),
+                ID_Jugador: parseInt(document.getElementById('editIdJugador').value),
+                EsCompra: document.getElementById('editEsCompra').checked
+            };
+
+            fetch(`${API_URL}/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(datosActualizados)
+            })
+            .then(() => {
+                formEditar.style.display = 'none';
+                formEditar.reset();
+                cargarRelaciones();
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        // Eliminar relación
+        function eliminarRelacion(id) {
+            if (confirm('¿Estás seguro de eliminar esta relación?')) {
+                fetch(`${API_URL}/${id}`, {
+                    method: 'DELETE'
+                })
+                .then(() => cargarRelaciones())
+                .catch(error => console.error('Error:', error));
+            }
+        }
+
+        // Inicializar
+        cargarRelaciones();
+    </script>
+</body>
+</html>
