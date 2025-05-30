@@ -4,7 +4,6 @@ const db = require('../config/db');
 const addGameToUser = (req, res) => {
     const { idUsuario, idJuego } = req.body;
 
-    // Validación básica
     if (!idUsuario || !idJuego) {
         return res.status(400).json({ 
             error: 'Se requieren idUsuario e idJuego' 

@@ -432,9 +432,9 @@
         <div class="content-panel" id="amigos-panel">
             <h2 class="panel-title">Problemas y sugerencias</h2>
             <div class="panel-content">
-                <button class="ps3-btn">Reportar un bug</button>
-                <button class="ps3-btn">Sugerencias</button>
-                <button class="ps3-btn">Contactar a un representante</button>
+                <button class="ps3-btn" onclick="goToBug()">Reportar un bug</button>
+                <button class="ps3-btn" onclick="goToSugestion()">Sugerencias</button>
+                <button class="ps3-btn" onclick="goToContact()">Contactar a un representante</button>
             </div>
         </div>
         
@@ -544,51 +544,50 @@
         }
     }
 
-function loadStore() {
-    const gameContainer = document.getElementById("games");
-    fetch('http://localhost:4000/api/usuarios/gamesOnSale')
-        .then(response => {
-            if (!response.ok) throw new Error('Error en la red: ' + response.status);
-            return response.json();
-        })
-        .then(data => {
-            data.forEach(function(game){
-                console.log("data");
-                console.log(game.Nombre);
-                console.log(game.ID_Juego);
-                gameContainer.innerHTML += `        
+    function loadStore() {
+        const gameContainer = document.getElementById("games");
+        fetch('http://localhost:4000/api/usuarios/gamesOnSale')
+            .then(response => {
+                if (!response.ok) throw new Error('Error en la red: ' + response.status);
+                return response.json();
+            })
+            .then(data => {
+                data.forEach(function(game){
+                    console.log("data");
+                    console.log(game.Nombre);
+                    console.log(game.ID_Juego);
+                    gameContainer.innerHTML += `        
+            <div class="gamecard">
+                <h1>${game.Nombre}</h1>
+                <p>${game.Descripcion}</p>
+                <h4>${game.Precio}</h4>
+                <button class="ps3-btn" 
+                        onclick="iniciarCompra('${game.Nombre.replace(/'/g, "\\'")}', ${game.ID_Juego})">
+                    Compra ahora
+                </button>
+            </div>`;
+                });
+            })
+            .catch(error => {
+                console.error('Error al cargar los juegos:', error);
+    gameContainer.innerHTML += `        
         <div class="gamecard">
             <h1>${game.Nombre}</h1>
             <p>${game.Descripcion}</p>
             <h4>${game.Precio}</h4>
             <button class="ps3-btn" 
-                    onclick="iniciarCompra('${game.Nombre.replace(/'/g, "\\'")}', ${game.ID_Juego})">
+                    onclick="iniciarCompra('${game.Nombre.replace(/'/g, "\\'")}', ${5})">
                 Compra ahora
             </button>
         </div>`;
             });
-        })
-        .catch(error => {
-            console.error('Error al cargar los juegos:', error);
-gameContainer.innerHTML += `        
-    <div class="gamecard">
-        <h1>${game.Nombre}</h1>
-        <p>${game.Descripcion}</p>
-        <h4>${game.Precio}</h4>
-        <button class="ps3-btn" 
-                onclick="iniciarCompra('${game.Nombre.replace(/'/g, "\\'")}', ${5})">
-            Compra ahora
-        </button>
-    </div>`;
-        });
-}
+    }
 
-// Nueva función para iniciar la compra
-function iniciarCompra(nombreJuego, idJuego) {
-    localStorage.setItem('juegoSeleccionado', nombreJuego);
-    localStorage.setItem('idJuegoSeleccionado', idJuego);
-    window.location.href = 'formulario-compra.html';
-}
+    function iniciarCompra(nombreJuego, idJuego) {
+        localStorage.setItem('juegoSeleccionado', nombreJuego);
+        localStorage.setItem('idJuegoSeleccionado', idJuego);
+        window.location.href = 'formulario-compra.html';
+    }
 
     function startGame(mode) {
         alert(`Iniciando modo ${mode}...`);
@@ -615,6 +614,16 @@ function iniciarCompra(nombreJuego, idJuego) {
         }
     }
 
+    function goToSugestion(){
+        window.location.href = 'sugestions.html'
+    }
+    function goToBug(){
+        window.location.href = 'bug.html'
+    }
+
+    function goToContact(){
+        window.location.href = 'contact.html'
+    }
     // WebSocket conexión
     const socket = io();
     const usuario = JSON.parse(localStorage.getItem('usuario'));
