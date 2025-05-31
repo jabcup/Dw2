@@ -1,100 +1,341 @@
-/* Google fonts */
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap");
+/* login-style.css - Versión mejorada manteniendo tu identidad */
+@import url('https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&family=Share+Tech&display=swap');
 
+/* Variables basadas en tu paleta original */
 :root {
-  --fondo: #5e5c6c;
-  --secundario: #a2bce0;
-  --blood-azul: #0b5563;
-  --celeste: #5299d3;
-  --plomo: #beb8eb;
+  --deep-space: #0f1923;
+  --space-gray: #1e2a38;
+  --blood-red: #ff4655;
+  --neon-red: #ff1a2f;
+  --electric-red: #ff5e6b;
+  --tech-blue: #12f7ff; /* Solo para pequeños acentos */
 }
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: 0;
-    font-family: "Open Sans", sans-serif;
-    text-decoration: none;
-    list-style: none;
+/* Reset mejorado */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-a{
-    color: white;
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--deep-space);
+  background-image: 
+    radial-gradient(circle at 75% 30%, var(--space-gray) 0%, transparent 50%),
+    radial-gradient(circle at 25% 70%, var(--space-gray) 0%, transparent 50%),
+    linear-gradient(to bottom, var(--deep-space), var(--deep-space));
+  font-family: 'Share Tech', sans-serif;
+  overflow-x: hidden;
 }
 
-body{
-    background: #beb8eb;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    
+/* Efecto de "glitch" sutil en el fondo */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(0deg, transparent 95%, rgba(255, 70, 85, 0.1) 95%),
+    linear-gradient(90deg, transparent 95%, rgba(255, 70, 85, 0.1) 95%);
+  background-size: 20px 20px;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: -1;
 }
 
-.nav{
-    color: black;
-    display: flex;
-    justify-content:space-around;
-    background-color: #5e5c6c;
-    padding: 20px;
-    width: 100%;
+/* Navbar - Más tecnológica */
+#navbar {
+  width: 100%;
+  padding: 1.5rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(15, 25, 35, 0.85);
+  backdrop-filter: blur(8px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  border-bottom: 1px solid var(--blood-red);
 }
-
-.navbtn{
-    padding: 5px;
-    background-color: #0b5563;
-    border: none;
-    border-radius: 5px;
-    transition:  all .3s;
-}
-
-.navbtn:hover{
-    background-color: #5299d3;
-    transition:  all .3s;
-}
-
 h1{
-    text-align: center;
+  font-family: 'Handjet', cursive;
+    font-weight: 600;
+  font-size: 2.2rem;
+  letter-spacing: 4px;
+  color: white;
+  text-shadow: 0 0 10px var(--blood-red);
+  position: relative;
 }
 
-ul{
-    padding: 20px;
+#left h1 {
+  font-family: 'Handjet', cursive;
+  font-weight: 600;
+  font-size: 2.2rem;
+  letter-spacing: 4px;
+  color: white;
+  text-shadow: 0 0 10px var(--blood-red);
+  position: relative;
 }
 
-ul li{
-    padding: 5px;
+#left h1::after {
+  content: ">";
+  position: absolute;
+  right: -20px;
+  bottom: 0;
+  color: var(--blood-red);
+  animation: cursorBlink 1s infinite;
 }
 
-ul .btnEditar{
-    background-color: #5299d3;
+@keyframes cursorBlink {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
 }
 
-input{
-    padding: 5px;
-    border: none;
-    border-radius: 5px;
+#right {
+  display: flex;
+  gap: 2rem;
 }
 
-button{
-    background-color: #57da48; border: none; padding: 3px; border-radius: 5px; cursor: pointer; color: white;
+#right a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-family: 'Share Tech', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  position: relative;
+  padding-bottom: 5px;
 }
 
-table{
-    border: 1px solid black;
-    border-radius: 5px;
-    width: 50%;
-    margin: auto;
+#right a:hover {
+  color: white;
+  text-shadow: 0 0 8px var(--electric-red);
 }
 
-table td{
-    border: 1px solid black;
-    padding: 3px;
-    border-radius: 5px;
+#right a::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--blood-red);
+  transition: width 0.3s ease;
 }
 
-#formEditar{
-    margin: 20px;
+#right a:hover::before {
+  width: 100%;
 }
 
-#formCrear{
-    margin: 20px;
+/* Contenedor del login - Más pulido */
+#formLogin {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(30, 42, 56, 0.6);
+  backdrop-filter: blur(12px);
+  padding: 3rem;
+  border-radius: 8px;
+  border: 1px solid var(--blood-red);
+  box-shadow: 
+    0 0 25px rgba(255, 70, 85, 0.3),
+    inset 0 0 30px rgba(255, 70, 85, 0.1);
+  margin-top: 6rem;
+  position: relative;
+  overflow: hidden;
+}
+
+#formLogin::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    transparent,
+    transparent,
+    transparent,
+    rgba(255, 70, 85, 0.1),
+    transparent
+  );
+  transform: rotate(30deg);
+  animation: shine 6s infinite;
+}
+
+@keyframes shine {
+  0% { transform: translateY(-100%) rotate(30deg); }
+  100% { transform: translateY(100%) rotate(30deg); }
+}
+
+h2 {
+  color: white;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-size: 2.8rem;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-family: 'Handjet', cursive;
+  font-weight: 500;
+  text-shadow: 
+    0 0 10px var(--blood-red),
+    0 0 20px var(--blood-red),
+    0 0 30px var(--blood-red);
+  position: relative;
+  margin-top: -1rem;
+}
+
+h2::after {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 3px;
+  background: var(--blood-red);
+  margin: 1rem auto 0;
+  box-shadow: 0 0 10px var(--blood-red);
+}
+
+/* Campos de entrada - Modernos pero tecnológicos */
+input {
+  width: 100%;
+  padding: 1.2rem;
+  margin-bottom: 1.8rem;
+  background: rgba(15, 25, 35, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  color: white;
+  font-size: 1.1rem;
+  font-family: 'Share Tech', sans-serif;
+  letter-spacing: 1px;
+  transition: all 0.4s ease;
+  position: relative;
+  z-index: 2;
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 2px;
+  font-size: 0.95rem;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--blood-red);
+  background: rgba(15, 25, 35, 0.9);
+  box-shadow: 
+    0 0 15px rgba(255, 70, 85, 0.5),
+    inset 0 0 10px rgba(255, 70, 85, 0.2);
+}
+
+/* Botón - Más impacto visual */
+button {
+  width: 100%;
+  padding: 1.2rem;
+  background: linear-gradient(135deg, var(--neon-red), var(--blood-red));
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  font-family: 'Handjet', cursive;
+  position: relative;
+  overflow: hidden;
+  margin-top: 1rem;
+  box-shadow: 
+    0 5px 15px rgba(255, 70, 85, 0.4),
+    inset 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 25px rgba(255, 70, 85, 0.6),
+    inset 0 0 15px rgba(255, 255, 255, 0.2);
+  letter-spacing: 4px;
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+button:hover::before {
+  left: 100%;
+}
+
+/* Responsive - Mejorado */
+@media (max-width: 768px) {
+  #navbar {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  #left h1 {
+    font-size: 1.8rem;
+  }
+  
+  #right {
+    gap: 1rem;
+  }
+  
+  #formLogin {
+    padding: 2rem;
+    margin: 1rem;
+    margin-top: 8rem;
+  }
+  
+  h2 {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  input {
+    padding: 1rem;
+  }
+  
+  button {
+    padding: 1rem;
+    font-size: 1.3rem;
+  }
+}
+
+/* Efecto de error para login fallido */
+.error-shake {
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+  10%, 90% { transform: translateX(-1px); }
+  20%, 80% { transform: translateX(2px); }
+  30%, 50%, 70% { transform: translateX(-3px); }
+  40%, 60% { transform: translateX(3px); }
 }
