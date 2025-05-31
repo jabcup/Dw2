@@ -1,3 +1,4 @@
+
 /* login-style.css - Versión mejorada manteniendo tu identidad */
 @import url('https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&family=Share+Tech&display=swap');
 
@@ -338,4 +339,3 @@ button:hover::before {
   20%, 80% { transform: translateX(2px); }
   30%, 50%, 70% { transform: translateX(-3px); }
   40%, 60% { transform: translateX(3px); }
-}
