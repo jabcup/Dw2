@@ -126,16 +126,17 @@ app.use('/api/puntajes', puntajesGeneralesRoutes);
 app.use(express.static(path.join(__dirname, '../login')));
 app.use(express.static(path.join(__dirname, '../Administrador')));
 app.use('/juegos', express.static(path.join(__dirname, 'juegos_js')));
+app.use('/juegos_js', express.static(path.join(__dirname, 'juegos_js')));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../login/login.html'));
-
-app.use(express.static(path.join(__dirname, 'Juegos JS/menu-juegos/img')));
-app.use(express.static(path.join(__dirname, 'Juegos JS/menu-juegos')));
-app.get('/games', (req, res) => {
-  res.sendFile(path.join(__dirname, 'Juegos JS/menu-juegos', 'index.html'));
-})
 });
+app.use(express.static(path.join(__dirname, 'juegos_js/menu-juegos/img')));
+// app.use(express.static(path.join(__dirname, 'juegos_js/menu-juegos')));
+// app.get('/games', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'juegos_js/menu-juegos', 'index.html'));
+// });
+
 
 
 app.get('/register', (req, res) => {

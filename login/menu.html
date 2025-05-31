@@ -22,6 +22,12 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            text-decoration: none;
+            list-style: none;
+        }
+
+        a{
+            color: #fff;
         }
         
         body {
@@ -386,6 +392,8 @@
     
     <div class="ps3-menu">
         <div class="menu-item active" data-panel="jugar">Entrar a <b>Arcadia</b></div>
+        <!-- Esto en tu menu.html -->
+    
         <div class="menu-item" data-panel="opciones">Opciones</div>
         <div class="menu-item" data-panel="tienda">Tienda</div>
         <div class="menu-item" data-panel="amigos">¿problemas <br> o sugerencias?</div>
@@ -398,7 +406,7 @@
             <div class="panel-content">
 
                 <p>¿Deseas entrar a Arcadia?</p>
-                <button class="ps3-btn" onclick="startGame()">Entrar</button>
+                <button class="ps3-btn"><a href="/juegos/menu-juegos/index.html">Entrar</a></button>
 
             </div>
         </div>
