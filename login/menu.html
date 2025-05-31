@@ -396,10 +396,8 @@
         <div class="content-panel active" id="jugar-panel">
             <h2 class="panel-title">Modo de Juego</h2>
             <div class="panel-content">
-                <p>Selecciona tu modo de juego preferido:</p>
-                <button class="ps3-btn" onclick="loadStore()">Campaña</button>
-                <button class="ps3-btn" onclick="startGame('arcade')">Arcade</button>
-                <button class="ps3-btn" onclick="startGame('entrenamiento')">Entrenamiento</button>
+                <p>¿Deseas entrar a Arcadia?</p>
+                <button class="ps3-btn" onclick="startGame()">Entrar</button>
             </div>
         </div>
 
@@ -486,6 +484,7 @@
 
         // Configurar navegación del menú
         setupMenuNavigation();
+        loadStore()
 
         // Configurar navegación por teclado
         document.addEventListener('keydown', handleKeyNavigation);
@@ -590,8 +589,8 @@
     }
 
     function startGame(mode) {
-        alert(`Iniciando modo ${mode}...`);
-        // window.location.href = `game.html?mode=${mode}`;
+//        window.location.href = `../src/Juegos JS/menu-juegos/index.html`;
+            window.location.href = `/games`;
     }
 
     function startOnlineGame(mode) {

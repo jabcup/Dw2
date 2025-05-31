@@ -18,6 +18,8 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
+
 const usuarioRoutes = require('./routes/usuarios');
 app.use('/api/usuarios', usuarioRoutes);
 
@@ -37,9 +39,17 @@ app.use(express.static(path.join(__dirname, '../login')));
 
 app.use(express.static(path.join(__dirname, '../Administrador')));
 
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../login/login.html'));
+
+app.use(express.static(path.join(__dirname, 'Juegos JS/menu-juegos/img')));
+app.use(express.static(path.join(__dirname, 'Juegos JS/menu-juegos')));
+app.get('/games', (req, res) => {
+  res.sendFile(path.join(__dirname, 'Juegos JS/menu-juegos', 'index.html'));
+})
 });
+
 
 app.get('/register', (req, res) => {
   res.sendFile(path.join(__dirname, '../login/register.html'));
@@ -163,6 +173,34 @@ console.log('Nuevo usuario conectado');
     const rooms = Array.from(supportRooms.values());
     socket.emit('supportRoomsList', rooms);
   });
+
+// Manejo de desconexiones (agregar esto dentro de io.on('connection', ...))
+socket.on('disconnect', () => {
+  console.log(`Socket desconectado: ${socket.id}`);
+
+  // 1. Limpiar salas de soporte donde participaba este socket (como usuario o admin)
+  supportRooms.forEach((room, roomId) => {
+    if (room.socket === socket.id || room.adminSocket === socket.id) {
+      // Notificar al otro participante (si existe)
+      const recipient = room.socket === socket.id ? room.adminSocket : room.socket;
+      if (recipient && io.sockets.sockets.has(recipient)) {
+        io.to(recipient).emit('supportRoomClosed', {
+          reason: 'La otra parte se desconectó',
+          roomId: roomId
+        });
+      }
+
+      // Eliminar la sala
+      supportRooms.delete(roomId);
+      console.log(`Sala de soporte ${roomId} eliminada por desconexión`);
+    }
+  });
+
+  // 2. Actualizar lista de salas para los admins
+  const rooms = Array.from(supportRooms.values());
+  io.to('admin_dashboard').emit('supportRoomsList', rooms);
+});
+
 });
 
 const PORT = 4000;

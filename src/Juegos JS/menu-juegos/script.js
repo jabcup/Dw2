@@ -2,7 +2,7 @@ const juegos = [
   {
     id: 1,
     nombre: "Juego 1",
-    imagen: "img/portada1.jpg",
+    imagen: "/img/portada1.jpg",
     descripcion: "Un emocionante reto de reflejos.",
     reglas: "Presiona las teclas correctas lo más rápido posible.",
     puntajes: [
@@ -13,7 +13,7 @@ const juegos = [
   {
     id: 2,
     nombre: "Juego 2",
-    imagen: "img/portada2.jpg",
+    imagen: "/img/portada2.jpg",
     descripcion: "Desafía tu precisión con el mouse.",
     reglas: "Haz clic sobre los objetivos lo más rápido posible.",
     puntajes: [
