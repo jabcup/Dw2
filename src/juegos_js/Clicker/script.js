@@ -55,7 +55,35 @@ function finalizarJuego() {
     clearInterval(intervalo);
     document.getElementById("counter").style.display = "none";
     document.getElementById("resetBtn").style.display = "block";
+
+    const puntajeFinal = contadorP * 50;
+    const idJuego = document.body.dataset.juego; // Asegúrate de tener esto en <body data-juego="1">
+
+    fetch('http://localhost:4000/api/scores', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify({
+        idJuego: parseInt(idJuego),
+        puntaje: puntajeFinal
+    })
+})
+.then(res => {
+    if (!res.ok) throw new Error("Respuesta no OK del servidor");
+    return res.json();
+})
+.then(data => {
+    console.log('Score guardado:', data);
+})
+.catch(error => {
+    console.error('Error al guardar puntaje:', error);
+});
+
 }
+
+
 
 function resetCounter() {
     document.getElementById("puntaje").innerHTML = 0;

@@ -4,9 +4,11 @@ const guessesText = document.querySelector(".guesses-text b");
 const keyboardDiv = document.querySelector(".keyboard");
 const gameModal = document.querySelector(".game-modal");
 const PlayAgainBtn = document.querySelector(".play-again");
+const puntajeDisplay = document.getElementById("puntaje");
 
 let currentWord, corectLetters, wrongGuessCount;
 const maxGuesses = 6;
+let contadorP = 0;  // puntaje acumulado
 
 const resetGame = () => {
     corectLetters = [];
@@ -22,9 +24,7 @@ const getRandomWord = () => {
     const { word, hint } = wordList[Math.floor(Math.random() * wordList.length)];
     currentWord = word;
     console.log(word); 
-    //palabra
     document.querySelector(".hint-text b").innerText = hint;
-    
     resetGame();
 }
 
@@ -35,6 +35,32 @@ const gameOver = (isVictory) => {
         gameModal.querySelector("h4").innerText = `${isVictory ? 'Felicidades!' : 'Perdiste!'}`;
         gameModal.querySelector("p").innerHTML = `${modalText} <b>${currentWord}</b>`;
         gameModal.classList.add("show");
+
+        if(isVictory) {
+            contadorP += 50;  // suma 50 puntos por palabra acertada
+            puntajeDisplay.innerText = contadorP;
+        }
+
+        // Obtener idJuego dinámico del body
+        const idJuego = parseInt(document.body.dataset.juego);
+
+        // Enviar puntaje acumulado al backend
+        fetch('http://localhost:4000/api/scores', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            credentials: 'include',
+            body: JSON.stringify({
+                idJuego: idJuego,
+                puntaje: contadorP
+            })
+        })
+        .then(res => {
+            if(!res.ok) throw new Error("Respuesta no OK del servidor");
+            return res.json();
+        })
+        .then(data => console.log('Score guardado:', data))
+        .catch(error => console.error('Error al guardar puntaje:', error));
+
     }, 300);
 }
 
@@ -55,17 +81,17 @@ const initGame = (button, clickedLetter) => {
     button.disabled = true;
     guessesText.innerText = `${wrongGuessCount} / ${maxGuesses}`;
 
-    if(wrongGuessCount === maxGuesses)return gameOver(false);
-    if(corectLetters.length === currentWord.length)return gameOver(true);
+    if(wrongGuessCount === maxGuesses) return gameOver(false);
+    if(corectLetters.length === currentWord.length) return gameOver(true);
 }
 
-for (let i = 97; i <= 122; i++){
+// Crear botones del teclado
+for(let i=97; i<=122; i++){
     const button = document.createElement("button");
     button.innerText = String.fromCharCode(i);
     keyboardDiv.appendChild(button);
     button.addEventListener("click", e => initGame(e.target, String.fromCharCode(i)));
 }
-
 
 getRandomWord();
 PlayAgainBtn.addEventListener("click", getRandomWord);
