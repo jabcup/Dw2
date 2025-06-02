@@ -73,3 +73,37 @@ body {
     border-radius: 50%;
     box-shadow: 1px 1px 30px #ff4655;
 }
+
+.game-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.game-modal.show {
+  display: flex;
+}
+
+.modal-content {
+  background: #222;
+  color: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+}
+
+.modal-content img {
+  max-width: 100px;
+}
+
+.modal-content button {
+  margin: 1rem 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}

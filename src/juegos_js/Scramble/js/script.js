@@ -6,13 +6,18 @@ const refreshBtn = document.querySelector(".refresh-word");
 const checkBtn = document.querySelector(".check-word");
 const puntajeDisplay = document.getElementById("puntaje");
 
+const modal = document.getElementById("game-over-modal");
+const reiniciarBtn = document.getElementById("reiniciar-btn");
+const respuestaCorrecta = document.getElementById("respuesta-correcta");
+
 let correctWord;
 let timer;
 let puntaje = 0;
+let tiempoRestante = 30;
 
 const enviarPuntajeFinal = () => {
     const idJuego = parseInt(document.body.dataset.juego);
-    
+
     fetch('http://localhost:4000/api/scores', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -22,38 +27,42 @@ const enviarPuntajeFinal = () => {
             puntaje: puntaje
         })
     })
-    .then(res => {
-        if (!res.ok) throw new Error("Error al guardar puntaje");
-        return res.json();
-    })
-    .then(data => console.log('Puntaje final enviado:', data))
+    .then(res => res.json())
+    .then(data => console.log('Puntaje enviado:', data))
     .catch(error => console.error('Error al enviar puntaje:', error));
 };
 
-const initTimer = (maxTime) => {
+const iniciarTemporizador = () => {
     clearInterval(timer);
+    tiempoRestante = 30;
+    timeText.innerText = tiempoRestante;
+
     timer = setInterval(() => {
-        if (maxTime > 0) {
-            maxTime--;
-            return timeText.innerText = maxTime;
+        tiempoRestante--;
+        timeText.innerText = tiempoRestante;
+
+        if (tiempoRestante <= 0) {
+            clearInterval(timer);
+            mostrarModal();
         }
-
-        clearInterval(timer);
-        alert(`¡Tiempo agotado! La palabra correcta era: ${correctWord.toUpperCase()}`);
-        
-        // Enviar puntaje solo al final
-        if (puntaje > 0) enviarPuntajeFinal();
-
-        // Reiniciar puntaje
-        puntaje = 0;
-        puntajeDisplay.innerText = puntaje;
-
-        initGame();
     }, 1000);
 };
 
+const mostrarModal = () => {
+    respuestaCorrecta.textContent = correctWord.toUpperCase();
+    modal.style.display = "flex";
+    enviarPuntajeFinal();
+};
+
+reiniciarBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+    puntaje = 0;
+    puntajeDisplay.innerText = puntaje;
+    iniciarTemporizador();
+    initGame();
+});
+
 const initGame = () => {
-    initTimer(30);
     const randomObj = words[Math.floor(Math.random() * words.length)];
     const wordArray = randomObj.word.split("");
 
@@ -71,19 +80,24 @@ const initGame = () => {
 
 const checkWord = () => {
     const userWord = inputField.value.toLowerCase();
-    if (!userWord) return alert("Por favor, ingresa una palabra.");
-    if (userWord !== correctWord) return alert(`¡Incorrecto! ${userWord} no es la palabra correcta.`);
+    if (!userWord) return;
 
-    alert(`¡Correcto! ${userWord.toUpperCase()} es la palabra correcta.`);
-    
-    // Aumentar el puntaje
-    puntaje += 50;
-    puntajeDisplay.innerText = puntaje;
-
-    initGame();
+    if (userWord === correctWord) {
+        puntaje += 50;
+        puntajeDisplay.innerText = puntaje;
+        initGame();
+        iniciarTemporizador();
+    } else {
+        alert("¡Incorrecto!");
+    }
 };
 
-refreshBtn.addEventListener("click", initGame);
+refreshBtn.addEventListener("click", () => {
+    initGame();
+    iniciarTemporizador();
+});
 checkBtn.addEventListener("click", checkWord);
 
+puntajeDisplay.innerText = puntaje;
 initGame();
+iniciarTemporizador();

@@ -7,7 +7,20 @@
     <link rel="stylesheet" href="style.css">
     
 </head>
+
+
+
 <body data-juego="3">
+
+<div id="game-over-modal" style="display:none;" class="modal">
+  <div class="modal-content">
+    <h3>¡Tiempo agotado!</h3>
+    <p>La palabra correcta era: <span id="respuesta-correcta"></span></p>
+    <button id="reiniciar-btn">Reiniciar</button>
+    <button onclick="window.location.href='/juegos/menu-juegos/index.html'">Volver al menú</button>
+  </div>
+</div>
+
     <div class="container">
         <h2>Word Scramble</h2>
         <div class="score-display">Puntaje: <span id="puntaje">0</span></div>

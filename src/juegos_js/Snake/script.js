@@ -14,6 +14,11 @@ let score = 0;
 let highScore = localStorage.getItem("high-score") || 0;
 highScoreElement.innerText = `High Score: ${highScore}`;
 
+// Modal
+const modal = document.getElementById("game-over-modal");
+const puntosFinales = document.getElementById("puntos-finales");
+const reiniciarBtn = document.getElementById("reiniciar-btn");
+
 // 🟡 NUEVA función para enviar el puntaje final
 const enviarPuntajeFinal = () => {
     const idJuego = parseInt(document.body.dataset.juego);
@@ -42,12 +47,12 @@ const changeFoodPosition = () => {
 
 const handleGameOver = () => {
     clearInterval(setIntervalId);
+    gameOver = true;
 
-    // 🔴 Solo enviamos puntaje si es mayor a 0
     if (score > 0) enviarPuntajeFinal();
 
-    alert("Game Over! Presiona OK para reintentar...");
-    location.reload();
+    puntosFinales.textContent = score;
+    modal.style.display = "flex";
 };
 
 const changeDirection = (e) => {
@@ -112,3 +117,7 @@ const initGame = () => {
 changeFoodPosition();
 setIntervalId = setInterval(initGame, 125);
 document.addEventListener("keydown", changeDirection);
+
+reiniciarBtn.addEventListener("click", () => {
+    location.reload();
+});
