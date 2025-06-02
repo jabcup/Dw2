@@ -1,32 +1,521 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>gil</title>
-	<link rel="stylesheet" href="login.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperación de Cuenta - Jiji Games</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            display: flex;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .left-panel {
+            flex: 1;
+            background: linear-gradient(135deg, #2c3e50, #4ca1af);
+            color: white;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .right-panel {
+            flex: 1;
+            padding: 40px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo h1 {
+            font-size: 28px;
+            margin-left: 15px;
+        }
+        
+        .logo span {
+            font-weight: bold;
+        }
+        
+        .logo .primary {
+            color: #fdbb2d;
+        }
+        
+        .logo .secondary {
+            color: #4ca1af;
+        }
+        
+        .welcome-text h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        
+        .welcome-text p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .steps {
+            margin-top: 30px;
+        }
+        
+        .step {
+            display: flex;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+        
+        .step-number {
+            background: #fdbb2d;
+            color: #2c3e50;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .form-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .form-header h2 {
+            color: #2c3e50;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .form-header p {
+            color: #7f8c8d;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e1e5ea;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #4ca1af;
+        }
+        
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .btn-primary {
+            background: #4ca1af;
+        }
+        
+        .btn-primary:hover {
+            background: #3a7e8a;
+        }
+        
+        .btn-secondary {
+            background: #fdbb2d;
+            color: #2c3e50;
+        }
+        
+        .btn-secondary:hover {
+            background: #e0a524;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .form-separator {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .form-separator::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e1e5ea;
+            z-index: 1;
+        }
+        
+        .form-separator span {
+            background: white;
+            padding: 0 15px;
+            position: relative;
+            z-index: 2;
+            color: #7f8c8d;
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .message-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .message-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .user-info {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .user-info h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .user-details {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        
+        .user-details strong {
+            width: 150px;
+            display: inline-block;
+            color: #2c3e50;
+        }
+        
+        .password-requirements {
+            background: #e8f4f8;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        
+        .password-requirements h4 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .password-requirements ul {
+            padding-left: 20px;
+        }
+        
+        .password-requirements li {
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        
+        .password-toggle {
+            position: relative;
+        }
+        
+        .toggle-icon {
+            position: absolute;
+            right: 15px;
+            top: 14px;
+            cursor: pointer;
+            color: #7f8c8d;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .left-panel {
+                padding: 30px;
+            }
+        }
+    </style>
 </head>
 <body>
-	        <div id="navbar">
-            <div id="left" class="navsec">
-                <h1><span class="game-logo">jiji </span><span class="game-logo-alt"> games</span><span class="game-logo"> oeo</span></h1>
+    <div class="container">
+        <div class="left-panel">
+            <div class="logo">
+                <h1><span class="primary">jiji</span> <span class="secondary">games</span></h1>
             </div>
-            <div id="right" class="navsec">
-                <a href="http://localhost:4000" class="nav-link">Inicio</a>
-                <a href="http://localhost:4000/register" class="nav-link">Registro</a>
-                <a href="#" class="nav-link">Tutorial</a>
-                <a href="#" class="nav-link">Reportar un bug</a>
+            <div class="welcome-text">
+                <h2>Recupera tu cuenta</h2>
+                <p>¿Olvidaste tu contraseña o necesitas actualizar tus datos? Estamos aquí para ayudarte a recuperar el acceso a tu cuenta de juego.</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-text">Verifica tu identidad con tu Nickname y Correo electrónico</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-text">Actualiza tus datos personales o contraseña</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-text">¡Vuelve a jugar y disfruta de tus juegos favoritos!</div>
+                </div>
             </div>
         </div>
-	<h1>Recuperación de cuenta</h1>
-	<form action="" id="formLogin">
-		<div class="input-group">
-			<p><b>Dinos tu correo electronico</b></p>
-			<br>
-			<input type="email" placeholder="CORREO ELECTRÓNICO" required id="email">
-		</div>
-		<button class="btn-text"> Buscar mi cuenta</button>
-	</form>
-	
-</body>
-</html>
+        
+        <div class="right-panel">
+            <div id="validationForm" class="form-container">
+                <div class="form-header">
+                    <h2>Verificación de Identidad</h2>
+                    <p>Por favor ingresa tu Nickname y Correo para validar tu cuenta</p>
+                </div>
+                
+                <div id="messageArea"></div>
+                
+                <form id="verifyForm">
+                    <div class="form-group">
+                        <label for="nickname">Nickname</label>
+                        <input type="text" id="nickname" class="form-control" placeholder="Tu nombre de jugador" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico</label>
+                        <input type="email" id="email" class="form-control" placeholder="tucorreo@ejemplo.com" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" id="verifyBtn">Verificar Identidad</button>
+                </form>
+            </div>
+            
+            <div id="updateForm" class="form-container hidden">
+                <div class="form-header">
+                    <h2>Actualiza tus datos</h2>
+                    <p>Modifica la información de tu cuenta</p>
+                </div>
+                
+                <div id="userInfo" class="user-info">
+                    <h3>Información del Jugador</h3>
+                    <div class="user-details">
+                        <strong>ID Jugador:</strong> <span id="playerId"></span>
+                    </div>
+                    <div class="user-details">
+                        <strong>Nombre:</strong> <span id="playerName"></span>
+                    </div>
+                </div>
+                
+                <form id="updateForm">
+                    <div class="form-group">
+                        <label for="newNickname">Nuevo Nickname</label>
+                        <input type="text" id="newNickname" class="form-control" placeholder="Nuevo nombre de jugador">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="newEmail">Nuevo Correo Electrónico</label>
+                        <input type="email" id="newEmail" class="form-control" placeholder="nuevocorreo@ejemplo.com">
+                    </div>
+                    
+                    <div class="password-requirements">
+                        <h4>Requisitos para la contraseña</h4>
+                        <ul>
+                            <li>Mínimo 8 caracteres</li>
+                            <li>Al menos una letra mayúscula</li>
+                            <li>Al menos un número</li>
+                            <li>Al menos un carácter especial (!@#$%^&*)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="form-group password-toggle">
+                        <label for="newPassword">Nueva Contraseña</label>
+                        <input type="password" id="newPassword" class="form-control" placeholder="Ingresa nueva contraseña">
+                        <span class="toggle-icon" id="togglePassword">👁️</span>
+                    </div>
+                    
+                    <div class="form-group password-toggle">
+                        <label for="confirmPassword">Confirmar Contraseña</label>
+                        <input type="password" id="confirmPassword" class="form-control" placeholder="Confirma tu nueva contraseña">
+                        <span class="toggle-icon" id="toggleConfirmPassword">👁️</span>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-secondary">Actualizar Datos</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Variables globales
+        let currentPlayer = null;
+        
+        // Elementos del DOM
+        const validationForm = document.getElementById('validationForm');
+        const updateForm = document.getElementById('updateForm');
+        const verifyForm = document.getElementById('verifyForm');
+        const updateDataForm = document.getElementById('updateForm');
+        const messageArea = document.getElementById('messageArea');
+        const verifyBtn = document.getElementById('verifyBtn');
+        const playerId = document.getElementById('playerId');
+        const playerName = document.getElementById('playerName');
+        
+        // Event Listeners
+        verifyForm.addEventListener('submit', handleVerification);
+        updateDataForm.addEventListener('submit', handleUpdate);
+        document.getElementById('togglePassword').addEventListener('click', togglePasswordVisibility);
+        document.getElementById('toggleConfirmPassword').addEventListener('click', toggleConfirmPasswordVisibility);
+        
+        // Función para manejar la verificación
+        async function handleVerification(e) {
+            e.preventDefault();
+            
+            const nickname = document.getElementById('nickname').value;
+            const email = document.getElementById('email').value;
+            
+            // Validación básica
+            if (!nickname || !email) {
+                showMessage('Por favor completa todos los campos', 'error');
+                return;
+            }
+            
+            // Cambiar texto del botón a "Verificando..."
+            verifyBtn.textContent = 'Verificando...';
+            verifyBtn.disabled = true;
+            
+            try {
+                const response = await fetch('/api/verify-user', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        Nickname: nickname,
+                        Correo: email
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    currentPlayer = data.jugador;
+                    showPlayerInfo();
+                    validationForm.classList.add('hidden');
+                    updateForm.classList.remove('hidden');
+                    showMessage('Validación exitosa. Ahora puedes actualizar tus datos', 'success');
+                } else {
+                    showMessage(data.error || 'Error en la verificación', 'error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showMessage('Error de conexión con el servidor', 'error');
+            } finally {
+                // Restaurar botón
+                verifyBtn.textContent = 'Verificar Identidad';
+                verifyBtn.disabled = false;
+            }
+        }
+        
+        // Función para mostrar información del jugador
+        function showPlayerInfo() {
+            if (currentPlayer) {
+                playerId.textContent = currentPlayer.ID_Jugador;
+                playerName.textContent = currentPlayer.Nombre;
+            }
+        }
+        
+        // Función para manejar la actualización de datos
+        async function handleUpdate(e) {
+            e.preventDefault();
+            
+            const newNickname = document.getElementById('newNickname').value;
+            const newEmail = document.getElementById('newEmail').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Validación de contraseña si se proporcionó
+            if (newPassword && newPassword !== confirmPassword) {
+                showMessage('Las contraseñas no coinciden', 'error');
+                return;
+            }
+            
+            if (newPassword && !validatePassword(newPassword)) {
+                showMessage('La contraseña no cumple con los requisitos de seguridad', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/update-user', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        id: currentPlayer.ID_Jugador,
+                        nickname: newNickname || currentPlayer.Nickname,
+                        email: newEmail || currentPlayer.Correo,
+                        password: newPassword
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showMessage('Datos actualizados correctamente', 'success');
+                    // Limpiar

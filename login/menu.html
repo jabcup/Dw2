@@ -545,7 +545,19 @@
     }
 
     function loadStore() {
+const getCookie = name => {
+    const raw = document.cookie
+        .split('; ')
+        .find(row => row.startsWith(`${name}=`))
+        ?.split('=')[1];
+    return raw ? decodeURIComponent(raw) : null;
+};
+
+
+        const limpio = getCookie('listaDeJuegos').replaceAll('"', '');
+        const list = limpio.split(' ');
         const gameContainer = document.getElementById("games");
+        console.log(list);
         fetch('http://localhost:4000/api/usuarios/gamesOnSale')
             .then(response => {
                 if (!response.ok) throw new Error('Error en la red: ' + response.status);
@@ -553,10 +565,24 @@
             })
             .then(data => {
                 data.forEach(function(game){
-                    console.log("data");
-                    console.log(game.Nombre);
-                    console.log(game.ID_Juego);
-                    gameContainer.innerHTML += `        
+                    console.log(typeof(list[0]))
+                    if (list.includes(String(game.ID_Juego))){
+                        console.log("ya tiene este juego, el ", game.Nombre)
+                                            gameContainer.innerHTML += `        
+            <div class="gamecard">
+                <h1>${game.Nombre}</h1>
+                <p>${game.Descripcion}</p>
+                <h4>${game.Precio}</h4>
+                <button class="ps3-btn" 
+                        onclick="">
+                    Ya tienes este juego
+                </button>
+            </div>`;
+                    }
+                    else{                        
+                        console.log("no tiene este juego, el ", game.Nombre)
+
+                        gameContainer.innerHTML += `        
             <div class="gamecard">
                 <h1>${game.Nombre}</h1>
                 <p>${game.Descripcion}</p>
@@ -566,6 +592,7 @@
                     Compra ahora
                 </button>
             </div>`;
+                    }
                 });
             })
             .catch(error => {
