@@ -9,8 +9,7 @@ BEGIN
     VALUES
         (1, NEW.ID_Jugador, 0),
         (2, NEW.ID_Jugador, 0),
-        (3, NEW.ID_Jugador, 0),
-        (4, NEW.ID_Jugador, 0);
+        (3, NEW.ID_Jugador, 0);
 END$$
 
 DELIMITER ;

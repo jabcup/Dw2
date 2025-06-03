@@ -16,6 +16,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  
+    text-decoration: none;
+    list-style: none;
 }
 
 body {
@@ -811,4 +814,101 @@ button:hover::before, .ps3-btn:hover::before {
 #tienda-panel{
   height: 800px;
   overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  #navbar {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  #right {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .ps3-menu {
+    position: static;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 1rem;
+  }
+
+  .menu-item {
+    font-size: 1.5rem;
+    padding: 10px 20px;
+    margin: 0;
+  }
+
+  .content-area {
+    position: static;
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .container {
+    margin-top: 2rem;
+    padding: 2rem;
+  }
+
+  .chat-global {
+    width: 100%;
+    right: 0;
+    bottom: 0;
+    border-radius: 0;
+  }
+}
+@media (max-width: 768px) {
+  .ps3-menu {
+    left: -9999px;
+    transition: left 0.3s ease;
+  }
+
+  .menu-toggle {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1100;
+    width: 40px;
+    height: 30px;
+    cursor: pointer;
+  }
+
+  .menu-toggle::before,
+  .menu-toggle::after,
+  .menu-toggle div {
+    content: '';
+    position: absolute;
+    height: 4px;
+    background: var(--blood-red);
+    width: 100%;
+    left: 0;
+    transition: 0.3s;
+  }
+
+  .menu-toggle div {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  a{
+    text-decoration: none;
+    list-style: none;
+
+  }
+
+  .menu-toggle::before {
+    top: 0;
+  }
+
+  .menu-toggle::after {
+    bottom: 0;
+  }
+
+  /* Toggle con checkbox hack */
+  #menu-checkbox:checked ~ .ps3-menu {
+    left: 80px;
+  }
 }
