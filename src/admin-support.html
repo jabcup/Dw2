@@ -4,139 +4,570 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Soporte - Administración</title>
+  
+
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-        }
-        
-        body {
-            background: #f0f2f5;
-            color: #333;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        header {
-            background: #1a2a3a;
-            color: white;
-            padding: 20px;
-            border-radius: 8px 8px 0 0;
-        }
-        
-        .main-content {
-            display: flex;
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .rooms-panel {
-            flex: 1;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 20px;
-        }
-        
-        .chat-panel {
-            flex: 2;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 20px;
-            display: none;
-        }
-        
-        .chat-panel.active {
-            display: block;
-        }
-        
-        h1, h2 {
-            margin-bottom: 20px;
-        }
-        
-        .room-list {
-            list-style: none;
-        }
-        
-        .room-item {
-            padding: 15px;
-            border-bottom: 1px solid #eee;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        
-        .room-item:hover {
-            background: #f9f9f9;
-        }
-        
-        .room-item.active {
-            background: #e3f2fd;
-            border-left: 4px solid #2196f3;
-        }
-        
-        .chat-messages {
-            height: 400px;
-            overflow-y: auto;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .message {
-            margin-bottom: 15px;
-            padding: 10px;
-            border-radius: 4px;
-        }
-        
-        .message.user {
-            background: #e3f2fd;
-            margin-right: 20%;
-        }
-        
-        .message.admin {
-            background: #e8f5e9;
-            margin-left: 20%;
-            text-align: right;
-        }
-        
-        .chat-input {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .chat-input input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        
-        .chat-input button {
-            padding: 10px 20px;
-            background: #4caf50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        
-        .close-room-btn {
-            padding: 10px 20px;
-            background: #f44336;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
+        /* styles.css - Unified stylesheet for all HTML files with a cyberpunk aesthetic */
+@import url('https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&family=Share+Tech&display=swap');
+
+/* Updated color palette */
+:root {
+  --deep-space: #0f1923;
+  --space-gray: #1e2a38;
+  --blood-red: #6eff46;
+  --neon-red: #22ff1a;
+  --electric-red: #79ff5e;
+  --tech-blue: #12f7ff; /* For subtle accents */
+}
+
+/* Reset for consistency */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--deep-space) 0%, var(--space-gray) 100%);
+  font-family: 'Share Tech', sans-serif;
+  color: white;
+  overflow-x: hidden;
+}
+
+/* Subtle glitch effect in the background */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(0deg, transparent 95%, rgba(110, 255, 70, 0.1) 95%),
+    linear-gradient(90deg, transparent 95%, rgba(110, 255, 70, 0.1) 95%);
+  background-size: 20px 20px;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Navbar styling for pages with top navigation */
+#navbar {
+  width: 100%;
+  padding: 1.5rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(15, 25, 35, 0.85);
+  backdrop-filter: blur(8px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  border-bottom: 1px solid var(--blood-red);
+}
+
+#left h1 {
+  font-family: 'Handjet', cursive;
+  font-weight: 600;
+  font-size: 2.2rem;
+  letter-spacing: 4px;
+  color: white;
+  text-shadow: 0 0 10px var(--blood-red);
+  position: relative;
+}
+
+#left h1::after {
+  content: ">";
+  position: absolute;
+  right: -20px;
+  bottom: 0;
+  color: var(--blood-red);
+  animation: cursorBlink 1s infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+#right {
+  display: flex;
+  gap: 2rem;
+}
+
+#right a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-family: 'Share Tech', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  position: relative;
+  padding-bottom: 5px;
+}
+
+#right a:hover {
+  color: white;
+  text-shadow: 0 0 8px var(--electric-red);
+}
+
+#right a::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--blood-red);
+  transition: width 0.3s ease;
+}
+
+#right a:hover::before {
+  width: 100%;
+}
+
+/* General container for forms and sections */
+.container {
+  width: 100%;
+  max-width: 900px;
+  background: rgba(30, 42, 56, 0.6);
+  backdrop-filter: blur(12px);
+  padding: 3rem;
+  border-radius: 8px;
+  border: 1px solid var(--blood-red);
+  box-shadow: 
+    0 0 25px rgba(110, 255, 70, 0.3),
+    inset 0 0 30px rgba(110, 255, 70, 0.1);
+  margin-top: 6rem;
+  position: relative;
+  overflow: hidden;
+  margin-left: auto;
+margin-right: auto;
+
+}
+
+.container::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    transparent,
+    transparent,
+    transparent,
+    rgba(110, 255, 70, 0.1),
+    transparent
+  );
+  transform: rotate(30deg);
+  animation: shine 6s infinite;
+}
+
+@keyframes shine {
+  0% { transform: translateY(-100%) rotate(30deg); }
+  100% { transform: translateY(100%) rotate(30deg); }
+}
+
+/* Headings */
+h1, h2 {
+  color: white;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-size: 2.8rem;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-family: 'Handjet', cursive;
+  font-weight: 500;
+  text-shadow: 
+    0 0 10px var(--blood-red),
+    0 0 20px var(--blood-red),
+    0 0 30px var(--blood-red);
+  position: relative;
+}
+
+h1::after, h2::after {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 3px;
+  background: var(--blood-red);
+  margin: 1rem auto 0;
+  box-shadow: 0 0 10px var(--blood-red);
+}
+
+h3 {
+  color: white;
+  font-family: 'Share Tech', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Input fields and textarea */
+input, textarea {
+  width: 100%;
+  padding: 1.2rem;
+  margin-bottom: 1.8rem;
+  background: rgba(15, 25, 35, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  color: white;
+  font-size: 1.1rem;
+  font-family: 'Share Tech', sans-serif;
+  letter-spacing: 1px;
+  transition: all 0.4s ease;
+  position: relative;
+  z-index: 2;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+input::placeholder, textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 2px;
+  font-size: 0.95rem;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--blood-red);
+  background: rgba(15, 25, 35, 0.9);
+  box-shadow: 
+    0 0 15px rgba(110, 255, 70, 0.5),
+    inset 0 0 10px rgba(110, 255, 70, 0.2);
+}
+
+/* Buttons */
+button, .ps3-btn {
+  width: 100%;
+  padding: 1.2rem;
+  background: linear-gradient(135deg, var(--neon-red), var(--blood-red));
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  font-family: 'Handjet', cursive;
+  position: relative;
+  overflow: hidden;
+  margin-top: 1rem;
+  box-shadow: 
+    0 5px 15px rgba(110, 255, 70, 0.4),
+    inset 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+button:hover, .ps3-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 25px rgba(110, 255, 70, 0.6),
+    inset 0 0 15px rgba(255, 255, 255, 0.2);
+  letter-spacing: 4px;
+}
+
+button:active, .ps3-btn:active {
+  transform: translateY(0);
+}
+
+button::before, .ps3-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+button:hover::before, .ps3-btn:hover::before {
+  left: 100%;
+}
+
+/* Specific styles for admin-support.html */
+#support-panel {
+  width: 100%;
+  max-width: 900px;
+  margin: 6rem auto 2rem;
+  display: flex;
+  gap: 2rem;
+  background: rgba(30, 42, 56, 0.6);
+  backdrop-filter: blur(12px);
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid var(--blood-red);
+  box-shadow: 
+    0 0 25px rgba(110, 255, 70, 0.3),
+    inset 0 0 30px rgba(110, 255, 70, 0.1);
+}
+
+.main-content {
+  display: flex;
+  gap: 2rem;
+  width: 100%;
+}
+
+.rooms-panel, .chat-panel {
+  flex: 1;
+  background: rgba(15, 25, 35, 0.7);
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid var(--blood-red);
+}
+
+.rooms-panel h2, .chat-panel h2 {
+  margin-bottom: 1.5rem;
+}
+
+.room-list {
+  list-style: none;
+  padding: 0;
+}
+
+.room-item {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: rgba(15, 25, 35, 0.7);
+  border-radius: 4px;
+  border: 1px solid var(--blood-red);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.room-item:hover {
+  background: rgba(15, 25, 35, 0.9);
+  box-shadow: 0 0 15px rgba(110, 255, 70, 0.3);
+}
+
+.room-item.active {
+  background: rgba(30, 42, 56, 0.9);
+  border-color: var(--electric-red);
+  box-shadow: 0 0 20px rgba(110, 255, 70, 0.5);
+}
+
+.room-item strong {
+  color: var(--blood-red);
+  font-family: 'Handjet', cursive;
+  font-size: 1.2rem;
+}
+
+.room-item p, .room-item small {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+
+.chat-messages {
+  height: 300px;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.message {
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.message-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.message-sender {
+  color: var(--blood-red);
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+.message-content {
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.4;
+}
+
+.message.admin .message-sender {
+  color: var(--tech-blue);
+}
+
+.message.system .message-sender {
+  color: var(--electric-red);
+}
+
+.chat-input {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.chat-input input {
+  flex: 1;
+}
+
+.chat-input button {
+  width: auto;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+}
+
+.close-room-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #ff5555, #cc4444);
+}
+
+.close-room-btn:hover {
+  background: linear-gradient(135deg, #cc4444, #ff5555);
+}
+
+/* Specific styles for jugadores.html */
+#jugadores-list {
+  width: 100%;
+  max-width: 600px;
+  margin-top: 6rem;
+}
+
+#jugadores-list h2 {
+  margin-bottom: 1.5rem;
+}
+
+#jugadores-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+#jugadores-list li {
+  background: rgba(30, 42, 56, 0.6);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  border: 1px solid var(--blood-red);
+  color: white;
+  font-family: 'Share Tech', sans-serif;
+}
+
+/* Specific styles for contact.html */
+#contact-form {
+  margin-top: 6rem;
+}
+
+#contact-info {
+  margin-top: 2rem;
+  font-family: 'Share Tech', sans-serif;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Specific styles for forgot.html */
+.steps {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.step {
+  flex: 1;
+  text-align: center;
+  background: rgba(30, 42, 56, 0.6);
+  padding: 1rem;
+  margin: 0 0.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--blood-red);
+}
+
+.password-requirements {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1rem;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: var(--blood-red);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  #navbar {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  #left h1 {
+    font-size: 1.8rem;
+  }
+
+  #right {
+    gap: 1rem;
+  }
+
+  .container, #jugadores-list, #support-panel {
+    padding: 2rem;
+    margin: 1rem;
+    margin-top: 8rem;
+  }
+
+  h2 {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  input, textarea, button, .ps3-btn {
+    padding: 1rem;
+    font-size: 1.3rem;
+  }
+
+  .steps {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  #support-panel {
+    flex-direction: column;
+  }
+
+  .main-content {
+    flex-direction: column;
+  }
+
+  .rooms-panel, .chat-panel {
+    flex: none;
+    width: 100%;
+  }
+}
+
+/* Error shake animation */
+.error-shake {
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+  10%, 90% { transform: translateX(-1px); }
+  20%, 80% { transform: translateX(2px); }
+  30%, 50%, 70% { transform: translateX(-3px); }
+  40%, 60% { transform: translateX(3px); }
+}
     </style>
 </head>
 <body>
@@ -253,7 +684,7 @@
                     message: message,
                     sender: 'admin'
                 });
-                addMessage('admin', message);
+                //addMessage('admin', message);
                 messageInput.value = '';
             }
         }

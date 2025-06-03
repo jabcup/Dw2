@@ -5,296 +5,177 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recuperación de Cuenta - Jiji Games</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1000px;
-            width: 100%;
-            display: flex;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-        }
-        
-        .left-panel {
-            flex: 1;
-            background: linear-gradient(135deg, #2c3e50, #4ca1af);
-            color: white;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        
-        .right-panel {
-            flex: 1;
-            padding: 40px;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-        
-        .logo h1 {
-            font-size: 28px;
-            margin-left: 15px;
-        }
-        
-        .logo span {
-            font-weight: bold;
-        }
-        
-        .logo .primary {
-            color: #fdbb2d;
-        }
-        
-        .logo .secondary {
-            color: #4ca1af;
-        }
-        
-        .welcome-text h2 {
-            font-size: 32px;
-            margin-bottom: 20px;
-        }
-        
-        .welcome-text p {
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-        
-        .steps {
-            margin-top: 30px;
-        }
-        
-        .step {
-            display: flex;
-            margin-bottom: 20px;
-            align-items: flex-start;
-        }
-        
-        .step-number {
-            background: #fdbb2d;
-            color: #2c3e50;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            margin-right: 15px;
-            flex-shrink: 0;
-        }
-        
-        .form-container {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .form-header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-        
-        .form-header h2 {
-            color: #2c3e50;
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-        
-        .form-header p {
-            color: #7f8c8d;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #2c3e50;
-            font-weight: 500;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 14px;
-            border: 2px solid #e1e5ea;
-            border-radius: 10px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
-        
-        .form-control:focus {
-            outline: none;
-            border-color: #4ca1af;
-        }
-        
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 14px;
-            background: #2c3e50;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        
-        .btn-primary {
-            background: #4ca1af;
-        }
-        
-        .btn-primary:hover {
-            background: #3a7e8a;
-        }
-        
-        .btn-secondary {
-            background: #fdbb2d;
-            color: #2c3e50;
-        }
-        
-        .btn-secondary:hover {
-            background: #e0a524;
-        }
-        
-        .hidden {
-            display: none;
-        }
-        
-        .form-separator {
-            text-align: center;
-            margin: 20px 0;
-            position: relative;
-        }
-        
-        .form-separator::before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: #e1e5ea;
-            z-index: 1;
-        }
-        
-        .form-separator span {
-            background: white;
-            padding: 0 15px;
-            position: relative;
-            z-index: 2;
-            color: #7f8c8d;
-        }
-        
-        .message {
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        .message-success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        
-        .message-error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-        
-        .user-info {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .user-info h3 {
-            margin-bottom: 15px;
-            color: #2c3e50;
-        }
-        
-        .user-details {
-            display: flex;
-            margin-bottom: 10px;
-        }
-        
-        .user-details strong {
-            width: 150px;
-            display: inline-block;
-            color: #2c3e50;
-        }
-        
-        .password-requirements {
-            background: #e8f4f8;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 20px 0;
-            font-size: 14px;
-        }
-        
-        .password-requirements h4 {
-            margin-bottom: 10px;
-            color: #2c3e50;
-        }
-        
-        .password-requirements ul {
-            padding-left: 20px;
-        }
-        
-        .password-requirements li {
-            margin-bottom: 5px;
-            color: #2c3e50;
-        }
-        
-        .password-toggle {
-            position: relative;
-        }
-        
-        .toggle-icon {
-            position: absolute;
-            right: 15px;
-            top: 14px;
-            cursor: pointer;
-            color: #7f8c8d;
-        }
-        
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-            
-            .left-panel {
-                padding: 30px;
-            }
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Handjet:wght@400;700&family=Share+Tech&display=swap');
+
+:root {
+  --deep-space: #0f1923;
+  --space-gray: #1e2a38;
+  --blood-red: #6eff46;
+  --neon-red: #22ff1a;
+  --electric-red: #79ff5e;
+  --tech-blue: #12f7ff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--deep-space);
+  font-family: 'Share Tech', sans-serif;
+  color: white;
+  padding: 2rem;
+}
+
+.container {
+  display: flex;
+  max-width: 1200px;
+  margin: auto;
+  background: rgba(30, 42, 56, 0.7);
+  border: 1px solid var(--blood-red);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 25px rgba(110, 255, 70, 0.3);
+}
+
+.left-panel, .right-panel {
+  padding: 2rem;
+  flex: 1;
+}
+
+.left-panel {
+  background: rgba(15, 25, 35, 0.8);
+  border-right: 1px solid var(--blood-red);
+}
+
+.logo h1 {
+  font-family: 'Handjet', cursive;
+  font-size: 3rem;
+  text-shadow: 0 0 10px var(--blood-red);
+}
+
+.primary {
+  color: var(--blood-red);
+}
+
+.secondary {
+  color: white;
+}
+
+.welcome-text h2 {
+  font-family: 'Handjet', cursive;
+  font-size: 2rem;
+  margin-top: 2rem;
+  text-shadow: 0 0 5px var(--neon-red);
+}
+
+.steps {
+  margin-top: 2rem;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.step-number {
+  font-family: 'Handjet', cursive;
+  font-size: 1.5rem;
+  color: var(--blood-red);
+  margin-right: 1rem;
+}
+
+.form-container {
+  background: rgba(15, 25, 35, 0.6);
+  border: 1px solid var(--blood-red);
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 0 15px rgba(110, 255, 70, 0.2);
+}
+
+.form-header h2 {
+  font-family: 'Handjet', cursive;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 8px var(--blood-red);
+}
+
+input {
+  width: 100%;
+  background: rgba(15, 25, 35, 0.8);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  color: white;
+  border-radius: 4px;
+}
+
+input:focus {
+  border-color: var(--blood-red);
+  outline: none;
+  box-shadow: 0 0 10px var(--blood-red);
+}
+
+button {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, var(--neon-red), var(--blood-red));
+  border: none;
+  font-family: 'Handjet', cursive;
+  font-size: 1.2rem;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  box-shadow: 0 0 20px var(--blood-red);
+}
+
+.user-info {
+  margin: 2rem 0;
+}
+
+.user-details {
+  margin-bottom: 1rem;
+}
+
+.password-requirements ul {
+  margin: 1rem 0;
+  padding-left: 1rem;
+  font-size: 0.9rem;
+  color: var(--tech-blue);
+}
+
+.toggle-icon {
+  cursor: pointer;
+  margin-left: 0.5rem;
+}
+
+.hidden {
+  display: none;
+}
+
+#messageArea {
+  margin-bottom: 1rem;
+  padding: 0.8rem;
+  border-radius: 4px;
+}
+
+#messageArea.success {
+  background-color: rgba(110, 255, 70, 0.2);
+  border: 1px solid var(--blood-red);
+}
+
+#messageArea.error {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: 1px solid red;
+}
+
     </style>
 </head>
 <body>

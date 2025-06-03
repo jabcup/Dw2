@@ -1,0 +1,814 @@
+/* styles.css - Unified stylesheet for all HTML files with a cyberpunk aesthetic */
+@import url('https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&family=Share+Tech&display=swap');
+
+/* Updated color palette */
+:root {
+  --deep-space: #0f1923;
+  --space-gray: #1e2a38;
+  --blood-red: #6eff46;
+  --neon-red: #22ff1a;
+  --electric-red: #79ff5e;
+  --tech-blue: #12f7ff; /* For subtle accents */
+}
+
+/* Reset for consistency */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--deep-space) 0%, var(--space-gray) 100%);
+  font-family: 'Share Tech', sans-serif;
+  color: white;
+  overflow-x: hidden;
+}
+
+/* Subtle glitch effect in the background */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(0deg, transparent 95%, rgba(110, 255, 70, 0.1) 95%),
+    linear-gradient(90deg, transparent 95%, rgba(110, 255, 70, 0.1) 95%);
+  background-size: 20px 20px;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Navbar styling for pages with top navigation */
+#navbar {
+  width: 100%;
+  padding: 1.5rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(15, 25, 35, 0.85);
+  backdrop-filter: blur(8px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  border-bottom: 1px solid var(--blood-red);
+}
+
+#left h1 {
+  font-family: 'Handjet', cursive;
+  font-weight: 600;
+  font-size: 2.2rem;
+  letter-spacing: 4px;
+  color: white;
+  text-shadow: 0 0 10px var(--blood-red);
+  position: relative;
+}
+
+#left h1::after {
+  content: ">";
+  position: absolute;
+  right: -20px;
+  bottom: 0;
+  color: var(--blood-red);
+  animation: cursorBlink 1s infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+#right {
+  display: flex;
+  gap: 2rem;
+}
+
+#right a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-family: 'Share Tech', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  position: relative;
+  padding-bottom: 5px;
+}
+
+#right a:hover {
+  color: white;
+  text-shadow: 0 0 8px var(--electric-red);
+}
+
+#right a::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--blood-red);
+  transition: width 0.3s ease;
+}
+
+#right a:hover::before {
+  width: 100%;
+}
+
+/* PS3-inspired vertical menu */
+.ps3-menu {
+  position: fixed;
+  top: 50%;
+  left: 80px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  z-index: 10;
+}
+
+.menu-item {
+  position: relative;
+  padding: 18px 40px;
+  font-family: 'Handjet', cursive;
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+  white-space: nowrap;
+  margin-left: -20px;
+}
+
+.menu-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 0;
+  background: var(--blood-red);
+  transition: all 0.3s ease;
+}
+
+.menu-item:hover {
+  color: rgba(255, 255, 255, 0.9);
+  transform: translateX(15px);
+}
+
+.menu-item:hover::before {
+  height: 80%;
+}
+
+.menu-item.active {
+  color: #fff;
+  transform: translateX(30px);
+  text-shadow: 0 0 10px var(--blood-red), 0 0 20px var(--blood-red);
+  animation: neonPulse 1.5s infinite alternate;
+}
+
+.menu-item.active::before {
+  height: 100%;
+  box-shadow: 0 0 10px var(--blood-red);
+}
+
+@keyframes neonPulse {
+  from {
+    text-shadow: 0 0 10px var(--blood-red), 0 0 20px var(--blood-red);
+  }
+  to {
+    text-shadow: 0 0 15px var(--blood-red), 0 0 30px var(--blood-red);
+  }
+}
+
+/* Content area for PS3 menu pages */
+.content-area {
+  position: absolute;
+  top: 0;
+  left: 400px;
+  width: calc(100% - 450px);
+  height: 100%;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.content-panel {
+  background: rgba(30, 42, 56, 0.8);
+  border-radius: 12px;
+  border: 1px solid var(--blood-red);
+  box-shadow: 0 0 30px rgba(110, 255, 70, 0.3);
+  padding: 40px;
+  max-width: 700px;
+  display: none;
+}
+
+.content-panel.active {
+  display: block;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.panel-title {
+  font-family: 'Handjet', cursive;
+  font-size: 3rem;
+  font-weight: 500;
+  color: var(--blood-red);
+  margin-bottom: 30px;
+  text-shadow: 0 0 10px rgba(110, 255, 70, 0.5);
+  letter-spacing: 3px;
+}
+
+.panel-content {
+  font-family: 'Share Tech', sans-serif;
+  color: #fff;
+  line-height: 1.6;
+  font-size: 1.1rem;
+}
+
+/* User info in PS3 menu */
+.user-info {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  text-align: right;
+  font-family: 'Share Tech', sans-serif;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.username {
+  font-size: 1.4rem;
+  color: var(--blood-red);
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.datetime {
+  font-size: 1rem;
+}
+
+/* Background waves effect */
+.bg-waves {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+  opacity: 0.2;
+}
+
+.wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 150px;
+  background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%236eff46" opacity=".25"/></svg>');
+  background-size: 50% 100%;
+  animation: waveMove 20s linear infinite;
+}
+
+.wave:nth-child(2) {
+  animation-delay: -7s;
+  opacity: 0.4;
+  bottom: 20px;
+}
+
+.wave:nth-child(3) {
+  animation-delay: -12s;
+  opacity: 0.6;
+  bottom: 40px;
+}
+
+@keyframes waveMove {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Global chat */
+.chat-global {
+  position: fixed;
+  right: 30px;
+  bottom: 200px; /* Raised to avoid overlap with content-area */
+  width: 350px;
+  max-height: 400px; /* Limit height to prevent overflow */
+  background: rgba(15, 25, 35, 0.95);
+  border: 1px solid var(--blood-red);
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(110, 255, 70, 0.3);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  padding: 15px;
+  border-bottom: 1px solid var(--space-gray);
+  font-family: 'Handjet', cursive;
+  font-size: 1.8rem;
+  color: var(--blood-red);
+  letter-spacing: 2px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 5px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot.red {
+  background: #ff5555;
+}
+
+.dot.yellow {
+  background: #ffeb3b;
+}
+
+.dot.green {
+  background: #00ff00;
+}
+
+.chat-messages {
+  height: 300px;
+  overflow-y: auto;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.3);
+  flex-grow: 1;
+}
+
+.message {
+  margin-bottom: 15px;
+  font-family: 'Share Tech', sans-serif;
+  font-size: 0.9rem;
+}
+
+.message-user {
+  color: var(--blood-red);
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.chat-input {
+  display: flex;
+  padding: 15px;
+  background: rgba(15, 25, 35, 0.9);
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 10px;
+  background: var(--deep-space);
+  border: 1px solid var(--space-gray);
+  color: white;
+  margin-right: 10px;
+  font-family: 'Share Tech', sans-serif;
+}
+
+.chat-input button {
+  padding: 8px 20px;
+  width: auto;
+  font-size: 1rem;
+}
+
+/* Game cards */
+.gamecard {
+  border: dashed 2px var(--blood-red);
+  border-radius: 4px;
+  padding: 2%;
+  margin: 3%;
+}
+
+.games {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  width: 100%;
+  max-width: 800px;
+}
+
+/* General container for forms and sections */
+.container {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(30, 42, 56, 0.6);
+  backdrop-filter: blur(12px);
+  padding: 3rem;
+  border-radius: 8px;
+  border: 1px solid var(--blood-red);
+  box-shadow: 
+    0 0 25px rgba(110, 255, 70, 0.3),
+    inset 0 0 30px rgba(110, 255, 70, 0.1);
+  margin-top: 6rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.container::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    transparent,
+    transparent,
+    transparent,
+    rgba(110, 255, 70, 0.1),
+    transparent
+  );
+  transform: rotate(30deg);
+  animation: shine 6s infinite;
+}
+
+@keyframes shine {
+  0% { transform: translateY(-100%) rotate(30deg); }
+  100% { transform: translateY(100%) rotate(30deg); }
+}
+
+/* Headings */
+h2 {
+  color: white;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-size: 2.8rem;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-family: 'Handjet', cursive;
+  font-weight: 500;
+  text-shadow: 
+    0 0 10px var(--blood-red),
+    0 0 20px var(--blood-red),
+    0 0 30px var(--blood-red);
+  position: relative;
+}
+
+h2::after {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 3px;
+  background: var(--blood-red);
+  margin: 1rem auto 0;
+  box-shadow: 0 0 10px var(--blood-red);
+}
+
+h3 {
+  color: white;
+  font-family: 'Share Tech', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Input fields and textarea */
+input, textarea {
+  width: 100%;
+  padding: 1.2rem;
+  margin-bottom: 1.8rem;
+  background: rgba(15, 25, 35, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  color: white;
+  font-size: 1.1rem;
+  font-family: 'Share Tech', sans-serif;
+  letter-spacing: 1px;
+  transition: all 0.4s ease;
+  position: relative;
+  z-index: 2;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+input::placeholder, textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 2px;
+  font-size: 0.95rem;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--blood-red);
+  background: rgba(15, 25, 35, 0.9);
+  box-shadow: 
+    0 0 15px rgba(110, 255, 70, 0.5),
+    inset 0 0 10px rgba(110, 255, 70, 0.2);
+}
+
+/* Buttons (general and PS3-specific) */
+button, .ps3-btn {
+  width: 100%;
+  padding: 1.2rem;
+  background: linear-gradient(135deg, var(--neon-red), var(--blood-red));
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  font-family: 'Handjet', cursive;
+  position: relative;
+  overflow: hidden;
+  margin-top: 1rem;
+  box-shadow: 
+    0 5px 15px rgba(110, 255, 70, 0.4),
+    inset 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+button:hover, .ps3-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 25px rgba(110, 255, 70, 0.6),
+    inset 0 0 15px rgba(255, 255, 255, 0.2);
+  letter-spacing: 4px;
+}
+
+button:active, .ps3-btn:active {
+  transform: translateY(0);
+}
+
+button::before, .ps3-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+button:hover::before, .ps3-btn:hover::before {
+  left: 100%;
+}
+
+/* Specific styles for jugadores.html */
+#jugadores-list {
+  width: 100%;
+  max-width: 600px;
+  margin-top: 6rem;
+}
+
+#jugadores-list h2 {
+  margin-bottom: 1.5rem;
+}
+
+#jugadores-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+#jugadores-list li {
+  background: rgba(30, 42, 56, 0.6);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  border: 1px solid var(--blood-red);
+  color: white;
+  font-family: 'Share Tech', sans-serif;
+}
+
+/* Specific styles for contact.html */
+#contact-form {
+  margin-top: 6rem;
+}
+
+#contact-info {
+  margin-top: 2rem;
+  font-family: 'Share Tech', sans-serif;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Specific styles for forgot.html */
+.steps {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.step {
+  flex: 1;
+  text-align: center;
+  background: rgba(30, 42, 56, 0.6);
+  padding: 1rem;
+  margin: 0 0.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--blood-red);
+}
+
+.password-requirements {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1rem;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: var(--blood-red);
+}
+
+/* Specific styles for admin-support.html */
+#support-panel {
+  width: 100%;
+  max-width: 800px;
+  margin-top: 6rem;
+  display: flex;
+  gap: 2rem;
+}
+
+#active-rooms, #support-chat {
+  flex: 1;
+  background: rgba(30, 42, 56, 0.6);
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid var(--blood-red);
+}
+
+#active-rooms ul {
+  list-style: none;
+  padding: 0;
+}
+
+#active-rooms li {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: rgba(15, 25, 35, 0.7);
+  border-radius: 4px;
+}
+
+#chat-messages {
+  height: 300px;
+  overflow-y: auto;
+  background: rgba(15, 25, 35, 0.7);
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+  .ps3-menu {
+    left: 50px;
+  }
+
+  .content-area {
+    left: 350px;
+    width: calc(100% - 400px);
+  }
+
+  .chat-global {
+    right: 20px;
+    width: 320px;
+  }
+}
+
+@media (max-width: 900px) {
+  .ps3-menu {
+    left: 30px;
+    gap: 20px;
+  }
+
+  .menu-item {
+    font-size: 2rem;
+    padding: 15px 30px;
+  }
+
+  .content-area {
+    left: 280px;
+    width: calc(100% - 320px);
+    padding: 40px;
+  }
+
+  .panel-title {
+    font-size: 2.5rem;
+  }
+
+  .chat-global {
+    width: 300px;
+    bottom: 150px; /* Adjusted for smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  #navbar {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  #left h1 {
+    font-size: 1.8rem;
+  }
+
+  #right {
+    gap: 1rem;
+  }
+
+  .container, #jugadores-list, #support-panel {
+    padding: 2rem;
+    margin: 1rem;
+    margin-top: 8rem;
+  }
+
+  h2 {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  input, textarea, button, .ps3-btn {
+    padding: 1rem;
+    font-size: 1.3rem;
+  }
+
+  .steps {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  #support-panel {
+    flex-direction: column;
+  }
+
+  .ps3-menu {
+    left: 20px;
+    gap: 15px;
+  }
+
+  .menu-item {
+    font-size: 1.8rem;
+    padding: 12px 25px;
+  }
+
+  .content-area {
+    left: 0;
+    width: 100%;
+    padding: 30px;
+  }
+
+  .chat-global {
+    width: 90%;
+    right: 5%;
+    bottom: 20px; /* Lowered back to avoid overlap with menu */
+    max-height: 300px;
+  }
+}
+
+/* Error shake animation */
+.error-shake {
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+  10%, 90% { transform: translateX(-1px); }
+  20%, 80% { transform: translateX(2px); }
+  30%, 50%, 70% { transform: translateX(-3px); }
+  40%, 60% { transform: translateX(3px); }
+}
+
+
+#tienda-panel{
+  height: 800px;
+  overflow-y: auto;
+}

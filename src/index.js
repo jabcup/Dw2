@@ -91,14 +91,14 @@ const server = http.createServer(app);
 const io = socketIo(server);
 
 // Middlewares (con la adición de cookie-parser)
-app.use(cors({
+/*app.use(cors({
   origin: 'http://localhost', // Asegúrate que coincida con tu frontend
   credentials: true // Permite el envío de cookies
-}));
+}));*/
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser()); // Middleware para cookies
-
+app.use(cors())
 
 const usuarioRoutes = require('./routes/usuarios');
 const jugadoresRoutes = require('./routes/jugadoresADMI');
