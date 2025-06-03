@@ -2,47 +2,61 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Menú de Juegos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menú de Juegos - Arcadia Games</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Handjet:wght@600&family=Share+Tech&display=swap" rel="stylesheet">
 </head>
 <body>
+  <div id="navbar">
+    <div id="left" class="navsec">
+      <h1><span class="game-logo">Arcadia Games</span></h1>
+    </div>
+    <div id="right" class="navsec">
+      <a href="http://localhost:4000/menu.html" class="nav-link">Menú Principal</a>
+    </div>
+  </div>
+
   <header>
     <h1>Selecciona tu Juego</h1>
+    <p class="subtitle">Explora nuestra colección de juegos retro</p>
   </header>
 
   <main>
-    <section class="juego-carousel" id="juegoCarousel">
-      <!-- Juegos cargados dinámicamente -->
+    <section class="juego-carousel-container">
+      <div class="juego-carousel" id="juegoCarousel">
+        <!-- Juegos cargados dinámicamente -->
+      </div>
     </section>
 
     <section class="info-juego">
       <div class="descripcion" id="descripcionJuego">
-        <h2>Descripción</h2>
+        <h2><span class="icon">📄</span> Descripción</h2>
         <p>Pasa el mouse sobre un juego para ver su descripción.</p>
       </div>
 
       <div class="reglas" id="reglasJuego">
-        <h2>Reglas</h2>
+        <h2><span class="icon">📜</span> Reglas</h2>
         <p>Selecciona un juego para ver las reglas.</p>
       </div>
 
       <div class="puntajes" id="puntajesJuego">
-        <h2>Puntajes</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              
-              <th>Puntaje</th>
-              <th>Nickname</th>
-              <th>Fecha</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Puntajes cargados dinámicamente -->
-          </tbody>
-        </table>
+        <h2><span class="icon">🏆</span> Puntajes</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Puntaje</th>
+                <th>Nickname</th>
+                <th>Fecha</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Puntajes cargados dinámicamente -->
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
   </main>

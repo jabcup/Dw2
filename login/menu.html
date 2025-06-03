@@ -394,7 +394,7 @@
         <div class="menu-item active" data-panel="jugar">Entrar a <b>Arcadia</b></div>
         <!-- Esto en tu menu.html -->
     
-        <div class="menu-item" data-panel="opciones">Opciones</div>
+        <div class="menu-item" data-panel="creditos"><a href="creditos.html">Creditos</a></div>
         <div class="menu-item" data-panel="tienda">Tienda</div>
         <div class="menu-item" data-panel="amigos">¿problemas <br> o sugerencias?</div>
         <div class="menu-item" data-panel="salir">Salir</div>
@@ -411,21 +411,7 @@
             </div>
         </div>
 
-        <div class="content-panel" id="opciones-panel">
-            <h2 class="panel-title">Opciones</h2>
-            <div class="panel-content">
-                <p>Ajustes del juego:</p>
-                <div style="margin-top: 30px;">
-                    <label for="volume" style="display: block; margin-bottom: 10px;">Volumen:</label>
-                    <input type="range" id="volume" name="volume" min="0" max="100" style="width: 100%; margin: 10px 0;">
-                </div>
-                <div style="margin-top: 25px;">
-                    <label for="brightness" style="display: block; margin-bottom: 10px;">Brillo:</label>
-                    <input type="range" id="brightness" name="brightness" min="0" max="100" style="width: 100%; margin: 10px 0;">
-                </div>
-                <button class="ps3-btn" onclick="saveSettings()">Guardar Ajustes</button>
-            </div>
-        </div>
+
         
         <div class="content-panel" id="tienda-panel">
             <h2 class="panel-title">Tienda</h2>

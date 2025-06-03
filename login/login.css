@@ -5,9 +5,9 @@
 :root {
   --deep-space: #0f1923;
   --space-gray: #1e2a38;
-  --blood-red: #ff4655;
-  --neon-red: #ff1a2f;
-  --electric-red: #ff5e6b;
+  --blood-red: #6eff46;
+  --neon-red: #22ff1a;
+  --electric-red: #79ff5e;
   --tech-blue: #12f7ff; /* Solo para pequeños acentos */
 }
 
@@ -16,6 +16,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
 }
 
 body {
@@ -65,9 +67,10 @@ body::before {
   z-index: 1000;
   border-bottom: 1px solid var(--blood-red);
 }
+
 h1{
   font-family: 'Handjet', cursive;
-    font-weight: 600;
+  font-weight: 600;
   font-size: 2.2rem;
   letter-spacing: 4px;
   color: white;
@@ -338,4 +341,8 @@ button:hover::before {
   20%, 80% { transform: translateX(2px); }
   30%, 50%, 70% { transform: translateX(-3px); }
   40%, 60% { transform: translateX(3px); }
+}
+
+a{
+  color: #fff;
 }

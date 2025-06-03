@@ -1,114 +1,149 @@
-/* Google fonts */
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap");
-
 :root {
-  --fondo: #5e5c6c;
-  --secundario: #a2bce0;
-  --blood-azul: #0b5563;
-  --celeste: #5299d3;
-  --plomo: #beb8eb;
+  --deep-space: #0f1923;
+  --space-gray: #1e2a38;
+  --blood-green: #6eff46;
+  --lime-green: #22ff1a;
+  --soft-green: #79ff5e;
+  --tech-blue: #12f7ff;
+
+  --text-light: #e0e0e0;
+  --text-muted: #a0a0a0;
+  --border-color: #2a3b4d;
+
+  --primary: var(--blood-green);
+  --secondary: var(--tech-blue);
+  --accent: var(--soft-green);
 }
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: 0;
-    font-family: "Open Sans", sans-serif;
-    text-decoration: none;
-    list-style: none;
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  background-color: var(--deep-space);
+  color: var(--text-light);
+  padding: 20px;
 }
 
-a{
-    color: white;
+h1, h2 {
+  color: var(--primary);
+  text-shadow: 1px 1px 2px #000;
 }
 
-body{
-    background: #beb8eb;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    
+.nav {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-.nav{
-    color: black;
-    display: flex;
-    justify-content:space-around;
-    background-color: #5e5c6c;
-    padding: 20px;
-    width: 100%;
+.navbtn, .navbtnA {
+  background-color: var(--space-gray);
+  border: 1px solid var(--border-color);
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.navbtn{
-    padding: 5px;
-    background-color: #0b5563;
-    border: none;
-    border-radius: 5px;
-    transition:  all .3s;
+.navbtn a, .navbtnA a {
+  color: var(--text-light);
+  text-decoration: none;
 }
 
-.navbtnA{
-    padding: 5px;
-    background-color: #333;
-    border: none;
-    border-radius: 5px;
-    transition:  all .3s;
-    box-shadow: 1px 1px 10px #ff4655;
+.navbtn:hover, .navbtnA:hover {
+  background-color: var(--border-color);
 }
 
-.navbtn:hover{
-    background-color: #5299d3;
-    transition:  all .3s;
+.navbtnA {
+  background-color: var(--primary);
+}
+.navbtnA a {
+  color: #0f1923;
+  font-weight: bold;
 }
 
-.navbtnA:hover{
-    background-color: #ff1a2f;
-    transition:  all .3s;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
 }
 
-h1{
-    text-align: center;
+table th, table td {
+  border: 1px solid var(--border-color);
+  padding: 8px 12px;
+  text-align: center;
 }
 
-ul{
-    padding: 20px;
+table thead {
+  background-color: var(--space-gray);
+  color: var(--text-light);
 }
 
-ul li{
-    padding: 5px;
+table tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.03);
 }
 
-ul .btnEditar{
-    background-color: #5299d3;
+table tbody tr:hover {
+  background-color: rgba(110, 255, 70, 0.05);
 }
 
-input{
-    padding: 5px;
-    border: none;
-    border-radius: 5px;
+form {
+  margin-bottom: 30px;
+  background-color: var(--space-gray);
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
 }
 
-button{
-    background-color: #57da48; border: none; padding: 3px; border-radius: 5px; cursor: pointer; color: white;
+.form-group {
+  margin-bottom: 10px;
 }
 
-table{
-    border: 1px solid black;
-    border-radius: 5px;
-    width: 50%;
-    margin: auto;
+input[type="number"],
+input[type="text"],
+input[type="checkbox"] {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  background-color: #1c2734;
+  color: var(--text-light);
+  width: 100%;
+  max-width: 300px;
 }
 
-table td{
-    border: 1px solid black;
-    padding: 3px;
-    border-radius: 5px;
+input[type="checkbox"] {
+  width: auto;
 }
 
-#formEditar{
-    margin: 20px;
+button {
+  background-color: var(--primary);
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #0f1923;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
 }
 
-#formCrear{
-    margin: 20px;
+button:hover {
+  background-color: var(--accent);
+}
+
+button[type="button"] {
+  background-color: var(--secondary);
+  color: #0f1923;
+}
+
+button[type="button"]:hover {
+  background-color: var(--lime-green);
+}
+
+/* Botones personalizados de tabla */
+button[onclick*="editarRelacion"] {
+  background-color: #f1d249;
+  color: #1e1e1e;
+}
+
+button[onclick*="eliminarRelacion"] {
+  background-color: #da4848;
+  color: white;
 }
