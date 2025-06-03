@@ -1,0 +1,291 @@
+/* Estilos para la página de Menú de Juegos - Versión mejorada */
+@import url('https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&family=Share+Tech&display=swap');
+
+:root {
+  --deep-space: #0f1923;
+  --space-gray: #1e2a38;
+  --blood-red: #6eff46;
+  --neon-red: #22ff1a;
+  --electric-red: #79ff5e;
+  --tech-blue: #12f7ff;
+  --neon-glow: 0 0 10px var(--electric-red), 0 0 20px var(--blood-red);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+}
+
+body {
+  margin: 0;
+  font-family: 'Share Tech', sans-serif;
+<<<<<<< HEAD:src/Juegos JS/menu-juegos/style.css
+  background-color: #1f1;
+=======
+  background-color: var(--deep-space);
+>>>>>>> chuma:src/juegos_js/menu-juegos/style.css
+  color: #eee;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+#navbar {
+  width: 100%;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(15, 25, 35, 0.85);
+  backdrop-filter: blur(8px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  border-bottom: 1px solid var(--blood-red);
+  height: 70px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+}
+
+#left h1 {
+  font-family: 'Handjet', cursive;
+  letter-spacing: 3px;
+  color: white;
+  font-size: 1.8rem;
+  text-shadow: var(--neon-glow);
+  transition: all 0.3s ease;
+}
+
+#left h1:hover {
+  text-shadow: 0 0 15px var(--electric-red);
+}
+
+#right {
+  display: flex;
+  gap: 2rem;
+}
+
+#right a {
+  color: rgba(255, 255, 255, 0.8);
+  font-family: 'Share Tech', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 0.5rem 0;
+}
+
+#right a:hover {
+  color: white;
+  text-shadow: var(--neon-glow);
+}
+
+#right a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--electric-red);
+  transition: width 0.3s ease;
+}
+
+#right a:hover::after {
+  width: 100%;
+}
+
+header {
+  text-align: center;
+  padding: 5px;
+  background: linear-gradient(to bottom, var(--space-gray), var(--deep-space));
+  color: #fff;
+  font-family: 'Handjet', cursive;
+  font-size: 1rem;
+  border-bottom: 2px solid var(--neon-red);
+  text-shadow: var(--neon-glow);
+  margin-top: 70px;
+}
+
+header .subtitle {
+  font-family: 'Share Tech', sans-serif;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-shadow: none;
+}
+
+.juego-carousel-container {
+  width: 100%;
+  padding: 2rem 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.juego-carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+  scroll-snap-type: x mandatory;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.juego-carousel::-webkit-scrollbar {
+  height: 8px;
+}
+
+.juego-carousel::-webkit-scrollbar-track {
+  background: var(--space-gray);
+  border-radius: 10px;
+}
+
+.juego-carousel::-webkit-scrollbar-thumb {
+  background: var(--blood-red);
+  border-radius: 10px;
+}
+
+.juego {
+  min-width: 180px;
+  scroll-snap-align: center;
+  border: 2px solid transparent;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  background: rgba(30, 42, 56, 0.5);
+  padding: 10px;
+}
+
+.juego:hover {
+  transform: scale(1.1);
+  border: 2px solid var(--neon-red);
+  box-shadow: 0 0 15px var(--blood-red);
+}
+
+.juego img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.juego:hover img {
+  transform: scale(1.05);
+}
+
+.info-juego {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.info-juego div {
+  background: rgba(30, 42, 56, 0.7);
+  border: 1px solid var(--space-gray);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.info-juego div:hover {
+  border-color: var(--blood-red);
+  box-shadow: 0 5px 20px rgba(110, 255, 70, 0.2);
+}
+
+.info-juego h2 {
+  font-family: 'Handjet', cursive;
+  color: var(--electric-red);
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.info-juego h2 .icon {
+  font-size: 1.5rem;
+}
+
+.info-juego p {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 1rem;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th, td {
+  padding: 0.8rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(68, 68, 68, 0.5);
+}
+
+th {
+  color: var(--electric-red);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.9rem;
+}
+
+tr:hover {
+  background-color: rgba(110, 255, 70, 0.1);
+}
+
+@media (max-width: 768px) {
+  #navbar {
+    padding: 1rem;
+    height: 60px;
+  }
+  
+  #left h1 {
+    font-size: 1.4rem;
+  }
+  
+  header {
+    font-size: 1.8rem;
+    padding: 1.5rem 1rem;
+  }
+  
+  .juego-carousel {
+    gap: 1rem;
+    padding: 1rem;
+    justify-content: flex-start;
+  }
+  
+  .juego {
+    min-width: 150px;
+  }
+  
+  .juego img {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .info-juego {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+}
