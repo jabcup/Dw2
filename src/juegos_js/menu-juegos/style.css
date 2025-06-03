@@ -22,11 +22,7 @@
 body {
   margin: 0;
   font-family: 'Share Tech', sans-serif;
-<<<<<<< HEAD:src/Juegos JS/menu-juegos/style.css
-  background-color: #1f1;
-=======
   background-color: var(--deep-space);
->>>>>>> chuma:src/juegos_js/menu-juegos/style.css
   color: #eee;
   min-height: 100vh;
   line-height: 1.6;
