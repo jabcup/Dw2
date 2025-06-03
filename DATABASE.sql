@@ -21,6 +21,8 @@ CREATE TABLE tb_Juegos (
     Descripcion TEXT,
     Reglas TEXT,
     Precio DECIMAL(10,2) DEFAULT 0.00,
+    RutaHTML VARCHAR(255), -- Aquí se coloca 'juegos/teclado.html', por ejemplo
+    Miniatura VARCHAR(255),
     INDEX idx_nombre (Nombre)
 );
 
@@ -32,7 +34,6 @@ CREATE TABLE tb_Puntajes (
     Fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (ID_Juego) REFERENCES tb_Juegos(ID_Juego) ON DELETE CASCADE,
     FOREIGN KEY (ID_Jugador) REFERENCES tb_Jugadores(ID_Jugador) ON DELETE CASCADE,
-    UNIQUE KEY uk_juego_jugador (ID_Juego, ID_Jugador), -- Evita duplicados
     INDEX idx_puntaje (Puntaje DESC) -- Para ranking
 );
 

@@ -3,11 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snake Game Javascript</title>
+    <title>Snake | Arcadia Games</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com//ajax/libs/font-awesome/6.3.0/css/all.min.css">
 </head>
-<body>
+<body data-juego = "4">
+
+<div id="game-over-modal" style="display: none;" class="modal">
+  <div class="modal-content">
+    <h3>¡Game Over!</h3>
+    <p>Tu puntaje fue: <span id="puntos-finales"></span></p>
+    <button id="reiniciar-btn">Reiniciar</button>
+    <button onclick="window.location.href='/juegos/menu-juegos/index.html'">Volver al menú</button>
+  </div>
+</div>
+
     <div class="wrapper">
         <div class="game-details">
             <span class="score">Score: 0</span>

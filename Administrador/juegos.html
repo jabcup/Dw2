@@ -13,6 +13,7 @@
     <button class="navbtn"><a href="./puntajes.html">Puntajes</a></button>
     <button class="navbtn"><a href="./juegosJugadores.html">Juegos - Jugadores</a></button>
     <button class="navbtn"><a href="./jugadores.html">Jugadores</a></button>
+    <button class="navbtn"><a href="/admin-support">Soporte</a></button>
     <button class="navbtnA"><a href="/juegos/menu-juegos/index.html">Arcadia</a></button>
 
 </div>
@@ -55,7 +56,7 @@
                     const li = document.createElement('li');
                     // En la función cargarJuegos, cambia el innerHTML:
 li.innerHTML = `
-    <strong>${juego.nombre}</strong> - ${juego.descripcion} - ${juego.reglas} - $${juego.precio}
+    ${juego.id} <strong>${juego.nombre}</strong> - ${juego.descripcion} - ${juego.reglas} - $${juego.precio}
     <button style="background-color: #f1d249; border: none; padding: 3px; border-radius: 5px; cursor: pointer; color: black;" onclick="editar(${juego.id}, '${juego.nombre}', '${juego.descripcion}', ${juego.precio})">Editar</button>
     <button style="background-color: #da4848; border: none; padding: 3px; border-radius: 5px; cursor: pointer; color: white;" onclick="eliminar(${juego.id})">Eliminar</button>
 `;

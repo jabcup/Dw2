@@ -1,30 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego 1</title>
+    <title>Detector de Clicks | Arcadia Games</title>
     <link rel="stylesheet" href="style.css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&family=Share+Tech&display=swap" rel="stylesheet">
 </head>
-<body>
-    <h2 class="titulo">Detector de Clicks</h2>
+<body data-juego="1">
 
-    <div class="estadisticas">
-        <p>Tiempo restante: <span id="temporizador">30</span>s</p>
-        <p>Puntaje</p>
-        <div id="puntaje" class="puntaje">0</div>
-        <p>Clicks</p>
-        <div id="clicks" class="clicks">0</div>
-        <button type="button" onclick="resetCounter()" id="resetBtn" style="display: none;">Resetear contador</button>
+    <div class="game-modal">
+        <div class="modal-content">
+            <img id="modal-img" src="" alt="Resultado">
+            <h2 id="modal-title"></h2>
+            <p id="modal-text"></p>
+            <div class="modal-buttons">
+                <button id="btn-reiniciar" class="glow-btn">Reiniciar</button>
+                <button id="btn-volver" class="glow-btn">Volver al menú</button>
+            </div>
+        </div>
     </div>
 
-    <button onclick="iniciarJuego()" id="startBtn">Iniciar juego</button>
+    <header class="game-header">
+        <h1 class="game-title">Detector de Clicks</h1>
+        <div class="game-subtitle">Prueba tu velocidad</div>
+    </header>
 
-    <div class="area-juego" id="areaJuego">
-        <div class="punto" id="counter" onclick="contadorClick()" style="display: none;">
-            <p class="p" style="visibility: hidden;">.</p>
+    <div class="game-stats">
+        <div class="stat-box">
+            <span class="stat-label">Tiempo</span>
+            <span class="stat-value" id="temporizador">30</span>
+            <span class="stat-unit">s</span>
         </div>
+        <div class="stat-box highlight">
+            <span class="stat-label">Puntaje</span>
+            <span class="stat-value" id="puntaje">0</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-label">Clicks</span>
+            <span class="stat-value" id="clicks">0</span>
+        </div>
+    </div>
+
+    <div class="game-controls">
+        <button class="start-btn glow-effect" id="startBtn" onclick="iniciarJuego()">Iniciar Juego</button>
+        <button class="reset-btn" id="resetBtn" onclick="resetCounter()" style="display: none;">Resetear</button>
+    </div>
+
+    <div class="game-area" id="areaJuego">
+        <div class="click-target" id="counter" onclick="contadorClick()" style="display: none;"></div>
+    </div>
+
+    <div class="game-instructions">
+        <h3><span class="icon">🎯</span> Cómo jugar</h3>
+        <p>Haz click en el objetivo <span class="target-sample"></span> lo más rápido que puedas</p>
+        <p>Cada click suma puntos a tu puntaje total</p>
+        <p>Tienes 30 segundos para alcanzar el objetivo</p>
     </div>
 
     <script src="script.js"></script>

@@ -52,7 +52,7 @@
                     const li = document.createElement('li');
                     // En la función cargarJugadores, cambia el innerHTML:
 li.innerHTML = `
-    ${jugador.nombre} ${jugador.nickname} ${jugador.correo} ${jugador.password}
+    ${jugador.id} ${jugador.nombre} ${jugador.nickname} ${jugador.correo} ${jugador.password}
     <button style="background-color: #f1d249; border: none; padding: 3px; border-radius: 5px; cursor: pointer; color: black;" onclick="editar(${jugador.id}, '${jugador.nombre}', '${jugador.nickname}', '${jugador.correo}', '${jugador.password}')">Editar</button>
     <button style="background-color: #da4848; border: none; padding: 3px; border-radius: 5px; cursor: pointer; color: white;" onclick="eliminar(${jugador.id})">Eliminar</button>
 `;
