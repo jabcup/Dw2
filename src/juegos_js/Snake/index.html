@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake | Arcadia Games</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com//ajax/libs/font-awesome/6.3.0/css/all.min.css">
+</head>
+<body data-juego = "4">
+
+<div id="game-over-modal" style="display: none;" class="modal">
+  <div class="modal-content">
+    <h3>¡Game Over!</h3>
+    <p>Tu puntaje fue: <span id="puntos-finales"></span></p>
+    <button id="reiniciar-btn">Reiniciar</button>
+    <button onclick="window.location.href='/juegos/menu-juegos/index.html'">Volver al menú</button>
+  </div>
+</div>
+
+    <div class="wrapper">
+        <div class="game-details">
+            <span class="score">Score: 0</span>
+            <span class="high-score">High Score: 30</span>
+        </div>
+        <div class="play-board"></div>
+        <div class="controls">
+            <i data-key = "ArrowLeft" class="fa-solid fa-arrow-left-long"></i>
+            <i data-key = "ArrowUp" class="fa-solid fa-arrow-up-long"></i>
+            <i data-key = "Arrowright" class="fa-solid fa-arrow-right-long"></i>
+            <i data-key = "ArrowDown" class="fa-solid fa-arrow-down-long"></i>
+        </div>
+    </div>
+
+<script src="script.js" defer></script>
+
+</body>
+</html>

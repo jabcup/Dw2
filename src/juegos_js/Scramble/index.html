@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scramble | Arcadia Games</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&family=Share+Tech&display=swap" rel="stylesheet">
+</head>
+<body data-juego="3">
+
+    <div id="game-over-modal" class="game-modal">
+        <div class="modal-content">
+            <h3>¡Tiempo agotado!</h3>
+            <p>La palabra correcta era: <span id="respuesta-correcta" class="correct-word"></span></p>
+            <div class="modal-buttons">
+                <button id="reiniciar-btn" class="glow-btn">Reiniciar</button>
+                <button class="glow-btn menu-btn">Volver al menú</button>
+            </div>
+        </div>
+    </div>
+
+    <header class="game-header">
+        <h1 class="game-title">Scramble Arcade</h1>
+        <div class="game-subtitle">Ordena las letras</div>
+    </header>
+
+    <div class="container">
+        <div class="score-display">Puntaje: <span id="puntaje">0</span></div>
+
+        <div class="content">
+            <p class="word"></p>
+            <div class="details">
+                <p class="hint">Pista: <span></span></p>
+                <p class="time">Tiempo: <span><b>30</b>s</span></p>
+            </div>
+            <input type="text" class="word-input" placeholder="Escribe la palabra correcta">
+            <div class="buttons">
+                <button class="refresh-word">Nueva Palabra</button>
+                <button class="check-word">Comprobar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/words.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

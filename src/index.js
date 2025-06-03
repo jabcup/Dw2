@@ -21,11 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser()); // Middleware para cookies
 app.use(cors())
 
-<<<<<<< HEAD
-=======
 
-
->>>>>>> chuma
 const usuarioRoutes = require('./routes/usuarios');
 const jugadoresRoutes = require('./routes/jugadoresADMI');
 const juegosRoutes = require('./routes/juegosADMI');
@@ -44,14 +40,14 @@ app.use('/api/jugadores', jugadoresRoutes);
 app.use('/api/juegos', juegosRoutes);
 app.use('/api/juegos-jugadores', juegoJugadorRoutes);
 app.use('/api/puntajes', puntajesRoutes);
-<<<<<<< HEAD
+
 const forgotRoutes = require('./routes/forgotRoutes');
 app.use('/api', forgotRoutes);
-=======
+
 app.use('/api/puntajesG', puntajesGRoutes);
 app.use('/api/scores', scoresRoutes);
 
->>>>>>> chuma
+
 // Rutas
 const rutasJuegos = require('./routes/dispJuegosRoutes'); // asegúrate de usar la ruta correcta
 app.use('/api', rutasJuegos); // ejemplo: http://localhost:3000/api/mis-juegos
@@ -65,24 +61,11 @@ app.use(express.static(path.join(__dirname, '../Administrador')));
 app.use('/juegos', express.static(path.join(__dirname, 'juegos_js')));
 app.use('/juegos_js', express.static(path.join(__dirname, 'juegos_js')));
 
-<<<<<<< HEAD
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../login/login.html'));
-
-});
-app.use(express.static(path.join(__dirname, 'Juegos JS/menu-juegos/img')));
-app.use(express.static(path.join(__dirname, 'Juegos JS/menu-juegos')));
-app.get('/games', (req, res) => {
-  res.sendFile(path.join(__dirname, 'Juegos JS/menu-juegos', 'index.html'));
-})
-
-=======
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../login/login.html'));
 });
 app.use(express.static(path.join(__dirname, 'juegos_js/menu-juegos/img')));
->>>>>>> chuma
 
 app.get('/register', (req, res) => {
   res.sendFile(path.join(__dirname, '../login/register.html'));
@@ -91,18 +74,12 @@ app.get('/register', (req, res) => {
 app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, '../Administrador/jugadores.html'));
 });
-<<<<<<< HEAD
 
 app.get('/admin-support', (req, res) => {
   res.sendFile(path.join(__dirname, 'admin-support.html'));
 });
 
-=======
-app.get('/admin-support', (req, res) => {
-  res.sendFile(path.join(__dirname, 'admin-support.html'));
-});
 // Socket.IO
->>>>>>> chuma
 io.on('connection', (socket) => {
 console.log('Nuevo usuario conectado');
 

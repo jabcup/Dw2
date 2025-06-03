@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahorcado | Arcadia Games</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&family=Share+Tech&display=swap" rel="stylesheet">
+</head>
+<body data-juego="2">
+
+    <div class="game-modal">
+        <div class="content">
+            <img src="img/lost.gif" alt="Resultado" id="modal-img">
+            <h4 id="modal-title">Resultado</h4>
+            <p id="modal-text">La palabra correcta era: <b>ejemplo</b></p>
+            <div class="modal-buttons">
+                <button class="play-again glow-btn">Reintentar</button>
+                <button class="next-word glow-btn" style="display: none;">Siguiente</button>
+                <button class="go-menu glow-btn">Menú</button>
+            </div>
+        </div>
+    </div>
+
+    <header class="game-header">
+        <h1 class="game-title">Ahorcado Arcade</h1>
+        <div class="game-subtitle">Adivina la palabra</div>
+    </header>
+
+    <div class="container">
+        <div class="score-display">Puntaje: <span id="puntaje">0</span></div>
+
+        <div class="hangman-box">
+            <img src="img/hangman-0.svg" alt="Estado del ahorcado">
+            <h1>Ahorcado</h1>
+        </div>
+        <div class="game-box">
+            <ul class="word-display"></ul>
+            <h4 class="hint-text">
+                Pista:
+                <b>Lorem ipsum dolor sit amet consectetur adipisicing elit.</b>
+            </h4>
+            <h4 class="guesses-text">
+                Intentos:
+                <b>0 / 6</b>
+            </h4>
+            <div class="keyboard"></div>
+        </div>
+    </div>
+
+    <script src="scripts/word-list.js"></script>
+    <script src="scripts/script.js"></script>
+</body>
+</html>
